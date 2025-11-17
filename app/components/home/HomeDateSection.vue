@@ -193,8 +193,12 @@ watch(
                 </span>
               </div>
 
-              <AccordionTrigger class="cursor-pointer text-gray-600 flex items-center gap-1" @click="handleAccordionToggle">
-                <span class="text-[16px] font-[700] text-gray-600"> {{ currentReminders.length }} {{ t("home.dateSection.reminders") }} </span>
+              <AccordionTrigger
+                class="cursor-pointer text-gray-600 flex items-center gap-1 hover:text-gray-800"
+                :aria-expanded="accordionValue === 'reminders'"
+                @click="handleAccordionToggle"
+              >
+                <span class="text-[16px] font-[700] text-gray-700"> {{ currentReminders.length }} {{ t("home.dateSection.reminders") }} </span>
               </AccordionTrigger>
             </div>
 
@@ -206,29 +210,31 @@ watch(
                   </div>
 
                   <div class="flex items-center justify-between p-2 sm:p-3 border-b bg-white rounded-t-md">
-                    <h3 class="font-bold text-sm sm:text-xl lg:text-2xl">
+                    <h2 class="font-bold text-sm sm:text-xl lg:text-2xl text-gray-900">
                       {{ t("home.dateSection.reminders") }}
-                    </h3>
+                    </h2>
 
                     <Button
                       v-if="!isAdding && currentReminders.length > 0"
-                      class="rounded-full text-white h-[32px] w-[32px] bg-primary"
+                      type="button"
+                      class="rounded-full text-white h-11 w-11 sm:h-8 sm:w-8 bg-primary hover:bg-primary/90"
                       size="icon"
-                      aria-label="Add task"
+                      :aria-label="t('home.dateSection.addReminder')"
                       :disabled="pending"
                       @click="addReminder('top')"
                     >
-                      <Plus class="w-[16px] h-[16px]" />
+                      <Plus class="w-[16px] h-[16px]" aria-hidden="true" />
                     </Button>
 
                     <Button
                       v-else-if="isAdding"
-                      class="rounded-full text-white h-[34px] w-[34px] bg-[#706F6F]"
+                      type="button"
+                      class="rounded-full text-white h-11 w-11 sm:h-9 sm:w-9 bg-[#706F6F] hover:bg-[#5a5959]"
                       size="icon"
-                      aria-label="Cancel task"
+                      :aria-label="t('home.dateSection.cancelAddReminder') || 'Cancel adding reminder'"
                       @mousedown.prevent="cancelAdd"
                     >
-                      <X class="w-[18px] h-[18px]" />
+                      <X class="w-[18px] h-[18px]" aria-hidden="true" />
                     </Button>
                   </div>
 
@@ -268,8 +274,13 @@ watch(
                         <!-- <p class="text-xs sm:text-sm text-gray-400 mt-1">
                           Start by adding your first task.
                         </p> -->
-                        <Button class="mt-4 bg-primary text-white rounded-full h-10 px-6" :disabled="pending" @click="addReminder('empty')">
-                          <Plus class="w-4 h-4 me-2" /> {{ t("home.dateSection.addReminder") }}
+                        <Button
+                          type="button"
+                          class="mt-4 bg-primary text-white rounded-full h-11 px-6 sm:h-10 flex items-center justify-center gap-2"
+                          :disabled="pending"
+                          @click="addReminder('empty')"
+                        >
+                          <Plus class="w-4 h-4" aria-hidden="true" /> {{ t("home.dateSection.addReminder") }}
                         </Button>
                       </div>
                     </div>

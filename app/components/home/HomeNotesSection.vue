@@ -124,22 +124,24 @@ async function deleteNote(noteId: number) {
         <!-- Add / Cancel toggle button -->
         <Button
           v-if="!showAddNote"
-          class="rounded-full text-white h-[34px] w-[34px] bg-primary hover:bg-primary/80 transition-colors duration-200 cursor-pointer"
+          type="button"
+          class="rounded-full text-white h-11 w-11 sm:h-[34px] sm:w-[34px] bg-primary hover:bg-primary/80 transition-colors duration-200 cursor-pointer"
           size="icon"
-          aria-label="Add note"
+          :aria-label="t('home.notes.addNote') || 'Add note'"
           @click="showAddNote = true"
         >
-          <Plus class="w-[18px] h-[18px]" />
+          <Plus class="w-[18px] h-[18px]" aria-hidden="true" />
         </Button>
 
         <Button
           v-else
-          class="rounded-full text-white h-[34px] w-[34px] bg-gray-500 hover:bg-red-500 transition-colors duration-200 cursor-pointer"
+          type="button"
+          class="rounded-full text-white h-11 w-11 sm:h-[34px] sm:w-[34px] bg-gray-500 hover:bg-red-500 transition-colors duration-200 cursor-pointer"
           size="icon"
-          aria-label="Cancel adding note"
+          :aria-label="t('home.notes.cancelAddNote') || 'Cancel adding note'"
           @click="showAddNote = false"
         >
-          <X class="w-[18px] h-[18px]" />
+          <X class="w-[18px] h-[18px]" aria-hidden="true" />
         </Button>
       </div>
 

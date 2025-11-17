@@ -184,95 +184,129 @@ const closeDialog = () => {
       <form class="space-y-4" @submit.prevent="submitNews">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="titleEn" class="block text-sm font-medium text-gray-500"
-              >{{ t("home.news.titleEnglish") }} <span class="text-red-500">{{ t("home.news.required") }}</span></label
+            <label for="titleEn" class="block text-sm font-medium text-gray-700"
+              >{{ t("home.news.titleEnglish") }} <span class="text-red-500" aria-label="required">*</span></label
             >
             <input
               id="titleEn"
               v-model="newNews.titleEn"
               type="text"
-              class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               :class="{ 'border-red-500': errors.titleEn }"
               :disabled="submitting"
+              :aria-invalid="!!errors.titleEn"
+              :aria-describedby="errors.titleEn ? 'titleEn-error' : undefined"
+              aria-required="true"
             />
-            <p v-if="errors.titleEn" class="text-red-500 text-sm mt-1">{{ errors.titleEn }}</p>
+            <p v-if="errors.titleEn" id="titleEn-error" class="text-red-500 text-sm mt-1" role="alert">{{ errors.titleEn }}</p>
           </div>
           <div>
-            <label for="titleAr" class="block text-sm font-medium text-gray-500"
-              >{{ t("home.news.titleArabic") }} <span class="text-red-500">{{ t("home.news.required") }}</span></label
+            <label for="titleAr" class="block text-sm font-medium text-gray-700"
+              >{{ t("home.news.titleArabic") }} <span class="text-red-500" aria-label="required">*</span></label
             >
             <input
               id="titleAr"
               v-model="newNews.titleAr"
               type="text"
               dir="rtl"
-              class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               :class="{ 'border-red-500': errors.titleAr }"
               :disabled="submitting"
+              :aria-invalid="!!errors.titleAr"
+              :aria-describedby="errors.titleAr ? 'titleAr-error' : undefined"
+              aria-required="true"
             />
-            <p v-if="errors.titleAr" class="text-red-500 text-sm mt-1">{{ errors.titleAr }}</p>
+            <p v-if="errors.titleAr" id="titleAr-error" class="text-red-500 text-sm mt-1" role="alert">{{ errors.titleAr }}</p>
           </div>
         </div>
         <div>
-          <label for="descriptionEn" class="block text-sm font-medium text-gray-500"
-            >{{ t("home.news.descriptionEnglish") }} <span class="text-red-500">{{ t("home.news.required") }}</span></label
+          <label for="descriptionEn" class="block text-sm font-medium text-gray-700"
+            >{{ t("home.news.descriptionEnglish") }} <span class="text-red-500" aria-label="required">*</span></label
           >
           <textarea
             id="descriptionEn"
             v-model="newNews.descriptionEn"
-            class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+            class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             :class="{ 'border-red-500': errors.descriptionEn }"
             rows="3"
             :disabled="submitting"
+            :aria-invalid="!!errors.descriptionEn"
+            :aria-describedby="errors.descriptionEn ? 'descriptionEn-error' : undefined"
+            aria-required="true"
           />
-          <p v-if="errors.descriptionEn" class="text-red-500 text-sm mt-1">{{ errors.descriptionEn }}</p>
+          <p v-if="errors.descriptionEn" id="descriptionEn-error" class="text-red-500 text-sm mt-1" role="alert">{{ errors.descriptionEn }}</p>
         </div>
         <div>
-          <label for="descriptionAr" class="block text-sm font-medium text-gray-500"
-            >{{ t("home.news.descriptionArabic") }} <span class="text-red-500">{{ t("home.news.required") }}</span></label
+          <label for="descriptionAr" class="block text-sm font-medium text-gray-700"
+            >{{ t("home.news.descriptionArabic") }} <span class="text-red-500" aria-label="required">*</span></label
           >
           <textarea
             id="descriptionAr"
             v-model="newNews.descriptionAr"
             dir="rtl"
-            class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+            class="mt-1 w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             :class="{ 'border-red-500': errors.descriptionAr }"
             rows="3"
             :disabled="submitting"
+            :aria-invalid="!!errors.descriptionAr"
+            :aria-describedby="errors.descriptionAr ? 'descriptionAr-error' : undefined"
+            aria-required="true"
           />
-          <p v-if="errors.descriptionAr" class="text-red-500 text-sm mt-1">{{ errors.descriptionAr }}</p>
+          <p v-if="errors.descriptionAr" id="descriptionAr-error" class="text-red-500 text-sm mt-1" role="alert">{{ errors.descriptionAr }}</p>
         </div>
         <div class="relative">
           <label for="image" class="flex items-center text-sm font-medium text-primary cursor-pointer" :class="{ 'opacity-50 cursor-not-allowed': submitting }">
-            <CirclePlus class="w-5 h-5 me-1" /> {{ t("home.news.addPhoto") }}
+            <CirclePlus class="w-5 h-5 me-1" aria-hidden="true" /> {{ t("home.news.addPhoto") }}
           </label>
-          <input id="image" ref="fileInput" type="file" accept="image/*" multiple class="hidden" :disabled="submitting" @change="previewImage" />
+          <input
+            id="image"
+            ref="fileInput"
+            type="file"
+            accept="image/*"
+            multiple
+            class="hidden"
+            :disabled="submitting"
+            aria-describedby="image-error"
+            @change="previewImage"
+          />
           <div v-if="imagePreviews.length > 0" class="mt-2 flex flex-wrap gap-2">
             <div v-for="(image, index) in imagePreviews" :key="index" class="relative">
-              <img :src="image" alt="Image Preview" class="w-20 h-20 object-cover rounded-md border border-gray-300" />
+              <img :src="image" :alt="`News image preview ${index + 1}`" class="w-20 h-20 object-cover rounded-md border border-gray-300" width="80" height="80" />
               <!-- Loading indicator for uploads -->
-              <div v-if="uploadingFiles.has(index)" class="absolute inset-0 bg-black bg-opacity-50 rounded-md flex items-center justify-center">
-                <Loader2 class="w-4 h-4 text-white animate-spin" />
+              <div
+                v-if="uploadingFiles.has(index)"
+                class="absolute inset-0 bg-black bg-opacity-50 rounded-md flex items-center justify-center"
+                role="status"
+                aria-busy="true"
+                aria-live="polite"
+              >
+                <Loader2 class="w-4 h-4 text-white animate-spin" aria-hidden="true" />
               </div>
               <button
                 type="button"
-                class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold"
+                class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-11 w-11 sm:h-8 sm:w-8 flex items-center justify-center text-xs font-bold hover:bg-red-600 transition-colors"
                 :disabled="submitting"
+                :aria-label="`Remove image ${index + 1}`"
                 @click="removeImage(index)"
               >
-                &times;
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
           </div>
-          <p v-if="errors.general" class="text-red-500 text-sm mt-1">{{ errors.general }}</p>
+          <p v-if="errors.general" id="image-error" class="text-red-500 text-sm mt-1" role="alert">{{ errors.general }}</p>
         </div>
-        <div class="flex items-center justify-between">
-          <Button class="bg-white border w-[48%] text-[#1E1E1E] hover:bg-gray-100 hover:text-[#1E1E1E] hover:border-gray-300" :disabled="submitting" @click="closeDialog">
+        <div class="flex items-center justify-between gap-2">
+          <Button
+            type="button"
+            class="bg-white border w-[48%] text-[#1E1E1E] hover:bg-gray-100 hover:text-[#1E1E1E] hover:border-gray-300 h-11 sm:h-10"
+            :disabled="submitting"
+            @click="closeDialog"
+          >
             {{ t("home.news.cancel") }}
           </Button>
-          <Button type="submit" class="bg-primary text-white w-[48%] flex items-center justify-center" :disabled="submitting">
+          <Button type="submit" class="bg-primary text-white w-[48%] flex items-center justify-center h-11 sm:h-10" :disabled="submitting" :aria-busy="submitting">
             <span v-if="!submitting">{{ t("home.news.add") }}</span>
-            <Loader2 v-else class="w-5 h-5 animate-spin" />
+            <Loader2 v-else class="w-5 h-5 animate-spin" aria-hidden="true" />
           </Button>
         </div>
       </form>

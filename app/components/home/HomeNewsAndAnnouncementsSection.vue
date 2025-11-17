@@ -6,15 +6,17 @@ import { useFetchNews } from "@/composables/news/useFetchNews";
 import { useGetNewsOne } from "@/composables/news/useGetNewsOne";
 import { useUpdate } from "@/composables/news/useUpdate";
 import { Plus, X } from "lucide-vue-next";
-import { onMounted, ref } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 import { toast } from "vue-sonner";
 import { usePermissions } from "~/composables/usePermissions";
 import type { CreateNewsPayload, NewsItem, UpdateNewsPayload } from "../../../types/news";
 import Separator from "../ui/separator/Separator.vue";
-import HomeAddNewsDialog from "./HomeAddNewsDialog.vue";
-import HomeEditNewsDialog from "./HomeEditNewsDialog.vue";
-import NewsCard from "./HomeNewsCard.vue";
-import HomeNewsEmptyState from "./HomeNewsEmptyState.vue";
+
+// Lazy load dialog components - only load when needed
+const HomeAddNewsDialog = defineAsyncComponent(() => import("./HomeAddNewsDialog.vue"));
+const HomeEditNewsDialog = defineAsyncComponent(() => import("./HomeEditNewsDialog.vue"));
+const NewsCard = defineAsyncComponent(() => import("./HomeNewsCard.vue"));
+const HomeNewsEmptyState = defineAsyncComponent(() => import("./HomeNewsEmptyState.vue"));
 
 const { t } = useI18n();
 const { canCreate, canUpdate, canDelete } = usePermissions();
@@ -130,21 +132,23 @@ const handleUpdateNews = async (data: { id: number; payload: UpdateNewsPayload }
       <template v-if="canCreate('news')">
         <button
           v-if="!isDialogOpen"
-          class="rounded-full text-white h-8 w-8 bg-primary hover:bg-primary/80 transition-colors"
-          aria-label="Add news"
+          type="button"
+          class="rounded-full text-white h-11 w-11 sm:h-8 sm:w-8 bg-primary hover:bg-primary/80 transition-colors"
+          :aria-label="t('home.news.add') || 'Add news'"
           :disabled="submitting"
           @click="openDialog"
         >
-          <Plus class="w-4 h-4 mx-auto" />
+          <Plus class="w-4 h-4 mx-auto" aria-hidden="true" />
         </button>
         <button
           v-else
-          class="rounded-full text-white h-9 w-9 bg-gray-600 hover:bg-red-500 transition-colors"
-          aria-label="Cancel adding news"
+          type="button"
+          class="rounded-full text-white h-11 w-11 sm:h-9 sm:w-9 bg-gray-600 hover:bg-red-500 transition-colors"
+          :aria-label="t('home.news.cancel') || 'Cancel adding news'"
           :disabled="submitting"
           @click="isDialogOpen = false"
         >
-          <X class="w-5 h-5 mx-auto" />
+          <X class="w-5 h-5 mx-auto" aria-hidden="true" />
         </button>
       </template>
     </div>

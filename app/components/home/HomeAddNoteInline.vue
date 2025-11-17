@@ -51,13 +51,25 @@ watch(newDescription, (val) => {
 <template>
   <div ref="formRef" class="mt-4 p-4 rounded-xl bg-[#F3FCFF] border-2 border-dashed border-[#B2CBD3] shadow-[0_0.5px_2px_rgba(0,0,0,0.05)] transition-all">
     <div class="space-y-2">
-      <Textarea v-model="newDescription" v-focus :placeholder="t('home.notes.placeholder')" rows="5" :class="{ 'border-red-500': error }" />
-      <p v-if="error" class="text-red-500 text-sm">{{ error }}</p>
+      <label for="note-description" class="sr-only">{{ t("home.notes.placeholder") }}</label>
+      <Textarea
+        id="note-description"
+        v-model="newDescription"
+        v-focus
+        :placeholder="t('home.notes.placeholder')"
+        rows="5"
+        :class="{ 'border-red-500': error }"
+        :aria-invalid="!!error"
+        :aria-describedby="error ? 'note-error' : undefined"
+        aria-required="true"
+      />
+      <p v-if="error" id="note-error" class="text-red-500 text-sm" role="alert">{{ error }}</p>
     </div>
 
     <div class="mt-4 flex justify-end">
       <Button
-        class="rounded-lg bg-primary text-white hover:bg-primary/90 hover:shadow-lg cursor-pointer h-8 w-auto px-3 py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-md font-medium text-sm"
+        type="button"
+        class="rounded-lg bg-primary text-white hover:bg-primary/90 hover:shadow-lg cursor-pointer h-11 w-auto px-3 py-1.5 sm:h-8 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-md font-medium text-sm"
         @click="saveNote"
       >
         {{ t("home.notes.save") }}

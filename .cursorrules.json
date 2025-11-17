@@ -1,0 +1,328 @@
+{
+  "rules": [
+    {
+      "id": "general-setup",
+      "description": "Always ensure Nuxt 4 + Vue 3 Composition API with TypeScript are used. Follow Nuxt naming and structure best practices. Use <script setup lang=\"ts\"> for all Vue components."
+    },
+    {
+      "id": "project-structure-root",
+      "description": "Maintain the following root directory structure: app/ (main application code), public/ (static assets), types/ (TypeScript type definitions), i18n/locales/ (translation files), azure/ (deployment configs). Never create files in root except config files."
+    },
+    {
+      "id": "project-structure-app",
+      "description": "The app/ directory must contain: components/ (Vue components), composables/ (reusable composables), pages/ (route pages), layouts/ (page layouts), middleware/ (route middleware), stores/ (Pinia stores), assets/ (CSS/images), lib/ (utilities), data/ (static data), error.vue (error page), app.vue (root component)."
+    },
+    {
+      "id": "components-structure",
+      "description": "Components must be organized in app/components/ with subdirectories: global/ (shared components like Navbar, Footer, Sidebar), auth/ (authentication forms), ui/ (shadcn UI components), and feature folders (home/, permissions/, recycle-bin/, etc.). Feature-specific components go in their feature folder. Shared/reusable components go in global/."
+    },
+    {
+      "id": "components-naming",
+      "description": "Component files use PascalCase: Navbar.vue, LoginForm.vue, HomeHeroSection.vue. Feature components prefix with feature name: HomeNewsCard.vue, HomeDateSection.vue. Dialog components suffix with Dialog: AddDocumentDialog.vue, EditItemDialog.vue. Empty state components suffix with EmptyState: HomeNewsEmptyState.vue."
+    },
+    {
+      "id": "components-ui-structure",
+      "description": "UI components in app/components/ui/ must follow shadcn pattern: each component has its own folder with ComponentName.vue and index.ts export file. Example: button/Button.vue and button/index.ts. Use index.ts to export the component for clean imports."
+    },
+    {
+      "id": "composables-structure",
+      "description": "Composables must be organized in app/composables/ by feature domain (auth/, categories/, files/, folders/, etc.). Each feature folder contains related composables. Shared composables (useApi.ts, usePermissions.ts) go directly in app/composables/."
+    },
+    {
+      "id": "composables-naming",
+      "description": "Composables must use camelCase with 'use' prefix: useCreateCategory.ts, useFetchAdmins.ts, useUpdateFile.ts, useDeleteNote.ts. Follow CRUD pattern: useCreateX, useFetchX, useGetX, useUpdateX, useDeleteX. Fetch multiple: useFetchX, get single: useGetX. Utility composables: useApi.ts, usePermissions.ts, useDataRefresh.ts."
+    },
+    {
+      "id": "composable-imports",
+      "description": "Import composables using: import { useFetchCategories } from \"/composables/categories/useFetchCategories\". Shared composables: import { useApi } from \"/composables/useApi\". Use auto-imports for Nuxt composables (useRoute, useRouter, etc.)."
+    },
+    {
+      "id": "component-imports",
+      "description": "Import components using relative paths within same feature, absolute paths for cross-feature: import Navbar from \"~/components/global/Navbar.vue\". Import from ui/ using: import { Button } from \"@/components/ui/button\". Use index.ts exports from ui components."
+    },
+    {
+      "id": "import-paths",
+      "description": "Use Nuxt auto-imports when possible. For manual imports: Components from app/components/ use ~/components/... or @/components/... (if configured). Composables use ~/composables/... Stores use ~/stores/... Types use ~/types/... Use @/ alias for app/ directory if configured in tsconfig.json."
+    },
+    {
+      "id": "assets-structure",
+      "description": "Assets in app/assets/: css/ (global styles like tailwind.css), images/ (if needed). CSS files imported in nuxt.config.ts or component <style> tags. Use public/ for static assets served directly."
+    },
+    {
+      "id": "public-structure",
+      "description": "Public assets in public/ directory: images (logo.png, icons), favicon.ico, static files. Files in public/ are served at root URL: /logo.png. Use for assets that don't need processing."
+    },
+    {
+      "id": "i18n-structure",
+      "description": "Translation files in i18n/locales/: en.json, ar.json. Use flat key structure or nested objects. Access in components: const { t } = useI18n(); t('key.path'). Support RTL: use locale.dir for direction."
+    },
+    {
+      "id": "layouts-structure",
+      "description": "Layouts in app/layouts/ must be named by purpose: default.vue (main layout), auth.vue (authentication pages). Layouts wrap pages using <NuxtLayout> in app.vue or definePageMeta."
+    },
+    {
+      "id": "middleware-structure",
+      "description": "Middleware in app/middleware/ uses .global.ts suffix for global middleware (auth.global.ts) or .ts for route-specific. Global middleware runs on every route. Use defineNuxtRouteMiddleware for route-specific middleware."
+    },
+    {
+      "id": "pages-structure",
+      "description": "Pages in app/pages/ follow Nuxt file-based routing. Use folders for nested routes: auth/login/index.vue, auth/change-password/index.vue. Dynamic routes use [Id] folder: categories/[Id]/index.vue, files/[Id]/index.vue. Root page is index.vue. Each route folder contains index.vue file."
+    },
+    {
+      "id": "pages-naming",
+      "description": "Page files must be named index.vue inside their route folder. Use definePageMeta({ layout: \"auth\" }) for auth pages. Use definePageMeta({ layout: \"default\" }) or omit for default layout."
+    },
+    {
+      "id": "stores-structure",
+      "description": "Stores in app/stores/ use Pinia. File naming: featureName.ts (e.g., auth.ts). Use defineStore with setup syntax. Export store composable: export const useAuthStore = defineStore('auth', () => { ... })."
+    },
+    {
+      "id": "types-structure",
+      "description": "TypeScript types in types/ directory. One file per domain: admin.ts, category.ts, file.ts, folder.ts, news.ts, role.ts, etc. Export interfaces and types from each file. Import types using: import type { TypeName } from \"~/types/domain\"."
+    },
+    {
+      "id": "accessibility-aria",
+      "description": "Use appropriate ARIA attributes: aria-expanded for toggle buttons, aria-haspopup and aria-expanded for menu buttons, aria-label for icon-only elements, aria-hidden=\"true\" for decorative icons, aria-busy and aria-live for loading states."
+    },
+    {
+      "id": "accessibility-animations",
+      "description": "Respect prefers-reduced-motion: Use @media (prefers-reduced-motion: reduce) to disable animations, provide option to disable animations, ensure content is readable without animations."
+    },
+    {
+      "id": "accessibility-buttons",
+      "description": "All <button> tags must have either visible text content OR an aria-label attribute. Icon-only buttons must include aria-label. Toggle buttons must include aria-expanded state. Menu buttons must include aria-haspopup and aria-expanded attributes."
+    },
+    {
+      "id": "accessibility-contrast",
+      "description": "Text must meet WCAG AA contrast ratios: normal text (16px+) requires 4.5:1, large text (18px+ or 14px+ bold) requires 3:1. Avoid text-gray-400 on white/light backgrounds. Use text-gray-500, text-gray-600, or text-gray-700 instead for better contrast."
+    },
+    {
+      "id": "accessibility-form-labels",
+      "description": "All form inputs must have associated labels using <label> with for attribute, OR aria-label, OR aria-labelledby. Never use placeholder text as the only label."
+    },
+    {
+      "id": "accessibility-forms",
+      "description": "Make forms accessible: Group related fields with <fieldset> and <legend>, provide error messages with aria-describedby, mark required fields with aria-required, validate and announce errors properly."
+    },
+    {
+      "id": "accessibility-headings",
+      "description": "Use proper heading hierarchy for screen readers: Only one h1 per page, headings must be in order (h1→h2→h3), don't skip heading levels, use headings to structure content logically."
+    },
+    {
+      "id": "accessibility-images",
+      "description": "All images must have alt text: Decorative images use alt=\"\" or aria-hidden=\"true\", informative images need descriptive alt text, complex images (charts, graphs) need long descriptions or aria-describedby."
+    },
+    {
+      "id": "accessibility-keyboard",
+      "description": "Ensure keyboard navigation works: All interactive elements must be focusable with Tab key, provide visible focus indicators, logical tab order, skip links for main content, escape key closes modals/dropdowns."
+    },
+    {
+      "id": "accessibility-landmarks",
+      "description": "Use semantic HTML landmarks: <header>, <nav>, <main>, <aside>, <footer>, <article>, <section>. Use role attributes when semantic HTML isn't available. Ensure landmarks are properly labeled."
+    },
+    {
+      "id": "accessibility-language",
+      "description": "Declare page language: Use lang attribute on <html> tag, use useHead({ htmlAttrs: { lang: 'en' } }) in Nuxt. For multilingual sites, set lang per page/component. Use lang attribute for language changes within page."
+    },
+    {
+      "id": "accessibility-links",
+      "description": "All <a> tags must have either visible text content OR an aria-label attribute. Icon-only links must include aria-label describing the link purpose, aria-hidden=\"true\" on decorative icons, and rel=\"noopener noreferrer\" for external links."
+    },
+    {
+      "id": "accessibility-touch-targets",
+      "description": "All interactive elements must be at least 44x44px (WCAG minimum). Use h-11 w-11 (44px) on mobile, can be h-8 w-8 (32px) on desktop. Pattern: class=\"h-11 w-11 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5\" for responsive touch targets."
+    },
+    {
+      "id": "best-practices-api-calls",
+      "description": "Handle API calls properly: Use composables for API logic, implement proper error handling, show loading states, cache responses when appropriate, use retry logic for failed requests, handle network errors gracefully."
+    },
+    {
+      "id": "best-practices-code-organization",
+      "description": "Organize code logically: Group related functionality, use consistent naming conventions, keep components small and focused, extract reusable logic to composables, use proper file structure, comment complex logic."
+    },
+    {
+      "id": "best-practices-console",
+      "description": "Avoid console errors: Remove console.log in production, handle all promise rejections, validate data before use, provide fallbacks for missing data, test error scenarios, use proper error boundaries."
+    },
+    {
+      "id": "best-practices-error-handling",
+      "description": "Handle errors gracefully: Provide user-friendly error messages, log errors appropriately, use try-catch for async operations, provide fallback UI for failed states, use error boundaries where applicable."
+    },
+    {
+      "id": "best-practices-i18n",
+      "description": "Support multiple languages: Use i18n for all user-facing text, never hardcode text in components, support RTL languages when needed, use proper locale formatting for dates/numbers, use locale-aware routing."
+    },
+    {
+      "id": "best-practices-image-resolution",
+      "description": "Serve images with appropriate resolution: Image natural dimensions should be proportional to display size and pixel ratio. For 40x40px display, serve at least 40x40px (or 80x80px for retina). Use responsive images with srcset for different densities."
+    },
+    {
+      "id": "best-practices-responsive",
+      "description": "Design mobile-first: Start with mobile styles, then add desktop breakpoints. Test on actual devices. Ensure touch targets are adequate on mobile. Use consistent breakpoints: sm:640px, md:768px, lg:1024px, xl:1280px, 2xl:1536px."
+    },
+    {
+      "id": "best-practices-security",
+      "description": "Follow security best practices: Always use rel=\"noopener noreferrer\" for external links, sanitize and validate all user input, use HTTPS, implement CSP headers, avoid XSS vulnerabilities, use parameterized API calls, never expose API keys in client code."
+    },
+    {
+      "id": "best-practices-semantic-html",
+      "description": "Use semantic HTML elements: <header>, <nav>, <main>, <footer>, <article>, <section>. Use <button> for actions, <a> for navigation. Use proper heading hierarchy (h1 → h2 → h3). Avoid div soup."
+    },
+    {
+      "id": "best-practices-state-management",
+      "description": "Use appropriate state management: Use Pinia stores for global state, use composables for shared logic, use props/emits for parent-child communication, use provide/inject for deep component communication, avoid prop drilling."
+    },
+    {
+      "id": "best-practices-testing",
+      "description": "Write testable code: Keep functions pure when possible, separate business logic from UI, use dependency injection, write unit tests for composables, write component tests for complex components, test accessibility."
+    },
+    {
+      "id": "best-practices-typescript",
+      "description": "Follow TypeScript best practices: Use proper types/interfaces, avoid any types, use Vue 3 Composition API with <script setup>, use proper prop validation with defineProps, use type imports: import type { ... }."
+    },
+    {
+      "id": "performance-bundle-size",
+      "description": "Minimize bundle size: Analyze bundle with webpack-bundle-analyzer or vite-bundle-visualizer, code split by route, lazy load heavy components, remove unused dependencies, use dynamic imports for large libraries."
+    },
+    {
+      "id": "performance-cache-headers",
+      "description": "Set appropriate cache headers for static assets: Images and fonts use Cache-Control: public, max-age=31536000, immutable. Hashed assets (CSS/JS) use Cache-Control: public, max-age=31536000, immutable. HTML uses Cache-Control: public, max-age=0, must-revalidate."
+    },
+    {
+      "id": "performance-cache-lifetimes",
+      "description": "Use efficient cache lifetimes: Set long cache TTL (1 year) for static assets with immutable filenames, use shorter cache for HTML (must-revalidate), implement cache busting with versioned filenames, configure server cache headers properly."
+    },
+    {
+      "id": "performance-core-web-vitals",
+      "description": "Optimize Core Web Vitals: LCP (Largest Contentful Paint) < 2.5s - optimize images, preload critical resources. FID (First Input Delay) < 100ms - minimize JavaScript execution. CLS (Cumulative Layout Shift) < 0.1 - set image dimensions, avoid dynamic content insertion."
+    },
+    {
+      "id": "performance-css",
+      "description": "Minimize render-blocking CSS. Inline critical CSS when possible, defer non-critical CSS, use CSS code splitting. Avoid large CSS files in <head>. Use Vite CSS code splitting."
+    },
+    {
+      "id": "performance-fonts",
+      "description": "Optimize font loading: Use font-display: swap, preload critical fonts, subset fonts when possible, use system fonts as fallback, limit number of font weights/styles, use variable fonts when available."
+    },
+    {
+      "id": "performance-image-delivery",
+      "description": "Improve image delivery: Use responsive images with proper srcset, ensure images are not larger than needed for display size, use modern formats (WebP, AVIF), optimize image quality (85% is good balance), lazy load below-the-fold images."
+    },
+    {
+      "id": "performance-images",
+      "description": "Always use NuxtImg component instead of <img> tag. Specify width and height attributes. Use loading=\"lazy\" for below-the-fold images, loading=\"eager\" only for LCP images. Prefer WebP format with quality=\"85\". Ensure image resolution matches or exceeds display size."
+    },
+    {
+      "id": "performance-javascript",
+      "description": "Optimize JavaScript: Code split by route, lazy load components, remove unused code (tree shaking), minify production builds, use async/defer for non-critical scripts, avoid large third-party libraries when possible."
+    },
+    {
+      "id": "performance-network-optimization",
+      "description": "Optimize network requests: Reduce critical path latency by minimizing request chains, defer non-critical resources, use preconnect for important origins, minimize initial navigation requests, optimize font loading with display: swap."
+    },
+    {
+      "id": "performance-render-blocking",
+      "description": "Eliminate render-blocking resources: Defer non-critical CSS, inline critical CSS, use async/defer for scripts, minimize CSS file size, split CSS by route/page when possible."
+    },
+    {
+      "id": "performance-resource-hints",
+      "description": "Add appropriate resource hints: use preconnect for critical third-party domains (max 4), use dns-prefetch for less critical domains, use preload for critical resources like fonts and above-fold images."
+    },
+    {
+      "id": "seo-alt-text",
+      "description": "All images must have descriptive alt text for SEO and accessibility. Use NuxtImg with alt attribute. Alt text should describe the image content, include keywords naturally, be concise (125 characters max)."
+    },
+    {
+      "id": "seo-canonical-urls",
+      "description": "Always include canonical URLs to prevent duplicate content: Use useHead({ link: [{ rel: 'canonical', href: fullUrl }] }). Ensure canonical points to the preferred version of the page."
+    },
+    {
+      "id": "seo-description",
+      "description": "Every page must have a meta description: 150-160 characters, unique per page, include primary keywords naturally, compelling and descriptive. Use useHead({ meta: [{ name: 'description', content: '...' }] })."
+    },
+    {
+      "id": "seo-headings",
+      "description": "Use proper heading hierarchy (h1 → h2 → h3). Only one h1 per page. Use h1 for main page title. Include keywords in headings naturally. Use semantic HTML headings, not styled divs."
+    },
+    {
+      "id": "seo-internal-linking",
+      "description": "Use descriptive anchor text for internal links. Link to related content naturally. Use NuxtLink for internal navigation. Include relevant keywords in link text when appropriate."
+    },
+    {
+      "id": "seo-meta-tags",
+      "description": "Every page must have proper meta tags: Use useHead() or definePageMeta() to set title, description, og:title, og:description, og:image, og:type, twitter:card. Title should be unique per page, description should be 150-160 characters, include keywords naturally."
+    },
+    {
+      "id": "seo-mobile-friendly",
+      "description": "Ensure mobile-friendly design: Use responsive viewport meta tag, test on mobile devices, ensure touch targets are adequate, use mobile-first CSS approach, avoid Flash and pop-ups."
+    },
+    {
+      "id": "seo-open-graph",
+      "description": "Include Open Graph tags for social sharing: og:title, og:description, og:image (1200x630px recommended), og:url, og:type (website/article), og:site_name. Use useHead() to add these meta tags."
+    },
+    {
+      "id": "seo-page-speed",
+      "description": "Optimize page speed for SEO: Minimize render-blocking resources, optimize images, enable compression, minimize CSS/JS, use CDN, implement lazy loading, reduce server response time."
+    },
+    {
+      "id": "seo-robots",
+      "description": "Create robots.txt file in public/ directory. Allow important pages, disallow admin/auth pages if needed, reference sitemap location. Use meta robots tag for page-specific directives."
+    },
+    {
+      "id": "seo-sitemap",
+      "description": "Generate and submit sitemap.xml. Use @nuxtjs/sitemap module or generate manually. Include all important pages, set proper priorities, update lastmod dates, submit to Google Search Console."
+    },
+    {
+      "id": "seo-structured-data",
+      "description": "Add structured data (JSON-LD) for better search understanding: Organization schema, BreadcrumbList, Article schema for blog posts, WebSite schema with search action. Use useHead({ script: [{ type: 'application/ld+json', children: JSON.stringify(schema) }] })."
+    },
+    {
+      "id": "seo-title-tags",
+      "description": "Use descriptive, unique page titles. Include site name with titleTemplate in nuxt.config.ts. Keep titles under 60 characters. Use useHead({ title: 'Page Title' }) or definePageMeta({ title: 'Page Title' })."
+    },
+    {
+      "id": "seo-twitter-cards",
+      "description": "Include Twitter Card meta tags: twitter:card (summary_large_image or summary), twitter:title, twitter:description, twitter:image. Use for better social media previews."
+    },
+    {
+      "id": "seo-urls",
+      "description": "Use clean, descriptive URLs: Use lowercase, hyphens for word separation, include keywords when relevant, avoid query parameters when possible, use i18n prefix for multilingual sites (/en/page, /ar/page)."
+    },
+    {
+      "id": "testing-accessibility",
+      "description": "Test accessibility with: Screen readers (NVDA, JAWS, VoiceOver), keyboard navigation only, Lighthouse accessibility audit (target: 90+), WAVE or axe DevTools."
+    },
+    {
+      "id": "testing-browsers",
+      "description": "Test on latest Chrome, Firefox, Safari, Edge, mobile browsers (iOS Safari, Chrome Mobile), and with JavaScript disabled for progressive enhancement."
+    },
+    {
+      "id": "testing-performance",
+      "description": "Monitor performance: Lighthouse Performance score (target: 90+), Core Web Vitals (LCP, FID, CLS), bundle size, image optimization."
+    },
+    {
+      "id": "pattern-contrast-text",
+      "description": "Good contrast text pattern: Use text-gray-500 for secondary text, text-gray-700 for important text. Avoid text-gray-400 for any readable content."
+    },
+    {
+      "id": "pattern-icon-button",
+      "description": "Icon-only button pattern: <button aria-label=\"Action description\"><Icon aria-hidden=\"true\" /></button>"
+    },
+    {
+      "id": "pattern-icon-link",
+      "description": "Icon-only link pattern: <a href=\"/path\" aria-label=\"Link description\" rel=\"noopener noreferrer\"><Icon aria-hidden=\"true\" /></a>"
+    },
+    {
+      "id": "pattern-optimized-image",
+      "description": "Optimized image pattern: <NuxtImg src=\"/image.jpg\" alt=\"Description\" width=\"800\" height=\"600\" loading=\"lazy\" format=\"webp\" quality=\"85\" />"
+    },
+    {
+      "id": "pattern-seo-head",
+      "description": "SEO head pattern: useHead({ title: 'Page Title', meta: [{ name: 'description', content: '...' }, { property: 'og:title', content: '...' }], link: [{ rel: 'canonical', href: '...' }] })"
+    },
+    {
+      "id": "pattern-touch-button",
+      "description": "Touch-friendly button pattern: <button class=\"h-11 w-11 sm:h-8 sm:w-auto sm:px-3\"><Icon /></button>"
+    }
+  ]
+}

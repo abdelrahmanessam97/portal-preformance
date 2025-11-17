@@ -113,11 +113,11 @@ const onKeydown = (e: KeyboardEvent) => {
     isCancelling.value = true;
     cancelNew();
   }
-  
+
   // Handle Enter key to save reminder
   if (e.key === "Enter") {
     e.preventDefault();
-    
+
     // Only save if it's a new reminder and validation passes
     if (isNew.value && canSave() && !props.loading && !isSaving.value && !isCancelling.value) {
       saveNew();
@@ -153,12 +153,16 @@ const handleDelete = () => {
         </span>
 
         <template v-else>
+          <label for="reminder-input" class="sr-only">{{ t("home.reminders.placeholder") }}</label>
           <input
+            id="reminder-input"
             ref="inputRef"
             v-model="draft"
-            class="bg-transparent border-none outline-none focus:ring-0 text-center placeholder-gray-400 text-xs sm:text-sm flex-1 py-0.5"
+            class="bg-transparent border-none outline-none focus:ring-2 focus:ring-primary text-center placeholder-gray-500 text-xs sm:text-sm flex-1 py-0.5"
             :placeholder="t('home.reminders.placeholder')"
             aria-label="New reminder title"
+            :aria-invalid="!!errorMsg"
+            :aria-describedby="errorMsg ? 'reminder-error' : undefined"
             maxlength="100"
             @keydown="onKeydown"
             @blur="onBlur"
@@ -169,13 +173,14 @@ const handleDelete = () => {
       <!-- Save button -->
       <button
         v-if="isNew"
-        class="ms-1 inline-flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-200"
+        type="button"
+        class="ms-1 inline-flex items-center justify-center h-11 w-11 sm:h-8 sm:w-8 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-green-200"
         :class="canSave() && !loading ? 'text-green-600 hover:bg-green-50' : 'text-green-600/50 cursor-not-allowed'"
         :disabled="!canSave() || loading"
-        :title="t('home.reminders.saveTitle')"
+        :aria-label="t('home.reminders.saveTitle')"
         @mousedown.prevent="canSave() && !loading && saveNew()"
       >
-        <CircleCheck class="w-5 h-5 sm:w-6 sm:h-6" />
+        <CircleCheck class="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
       </button>
 
       <!-- Actions -->
@@ -184,18 +189,21 @@ const handleDelete = () => {
         class="flex items-center justify-center gap-2 sm:gap-2.5 transition-all duration-300 w-0 opacity-0 overflow-hidden group-hover:w-20 group-hover:opacity-100"
       >
         <button
-          class="h-7 w-7 sm:h-8 sm:w-8 inline-flex items-center justify-center rounded-full text-green-600 hover:bg-green-50"
-          :title="t('home.reminders.doneTitle')"
+          type="button"
+          class="h-11 w-11 sm:h-8 sm:w-8 inline-flex items-center justify-center rounded-full text-green-600 hover:bg-green-50 transition-colors"
+          :aria-label="t('home.reminders.doneTitle')"
+          :aria-pressed="reminder.done"
           @click="handleToggle"
         >
-          <Check class="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <Check class="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
         </button>
         <button
-          class="h-7 w-7 sm:h-8 sm:w-8 inline-flex items-center justify-center rounded-full text-red-600 hover:bg-red-50"
-          :title="t('home.reminders.deleteTitle')"
+          type="button"
+          class="h-11 w-11 sm:h-8 sm:w-8 inline-flex items-center justify-center rounded-full text-red-600 hover:bg-red-50 transition-colors"
+          :aria-label="t('home.reminders.deleteTitle')"
           @click="handleDelete"
         >
-          <Trash class="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <Trash class="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -204,7 +212,7 @@ const handleDelete = () => {
       <LoadingSpinner />
     </template>
 
-    <Alert v-if="errorMsg" class="absolute left-0 top-full mt-1 w-60 border-red-200 bg-red-50 shadow-md rounded-md z-10 p-1.5">
+    <Alert v-if="errorMsg" id="reminder-error" class="absolute left-0 top-full mt-1 w-60 border-red-200 bg-red-50 shadow-md rounded-md z-10 p-1.5" role="alert">
       <AlertTitle class="text-[11px] font-semibold text-red-700">{{ t("home.reminders.validationTitle") }}</AlertTitle>
       <AlertDescription class="text-[11px] text-red-600">
         {{ errorMsg }}

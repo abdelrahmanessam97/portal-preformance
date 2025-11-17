@@ -12,6 +12,21 @@ export default defineNuxtConfig({
   },
 
   modules: ["shadcn-nuxt", "@pinia/nuxt", "@nuxtjs/i18n", "@nuxtjs/google-fonts", "@nuxt/image"],
+
+  // Image optimization settings
+  image: {
+    quality: 85,
+    format: ["webp"],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
+
   googleFonts: {
     families: {
       Inter: [300, 400, 500, 600, 700, 800],

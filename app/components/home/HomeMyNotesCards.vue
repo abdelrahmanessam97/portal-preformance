@@ -43,7 +43,7 @@ const handleDelete = (id: number) => emit("delete-note", id);
     <div class="group border p-4 rounded-2xl bg-[#EFF6F8] overflow-hidden">
       <div class="flex flex-col justify-between flex-1">
         <div>
-          <p class="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+          <p class="text-gray-900 text-sm leading-relaxed whitespace-pre-line">
             {{ note.description }}
           </p>
         </div>
@@ -51,18 +51,20 @@ const handleDelete = (id: number) => emit("delete-note", id);
         <!-- Delete button -->
         <div class="flex justify-end mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
-            class="rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700 cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium text-xs sm:text-sm"
+            type="button"
+            class="rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700 cursor-pointer h-11 w-11 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium text-xs sm:text-sm"
+            :aria-label="`${t('home.notes.delete')} note`"
             @click="handleDelete(note.id)"
           >
-            <Trash2 class="h-4 w-4" />
+            <Trash2 class="h-4 w-4" aria-hidden="true" />
             <span class="hidden sm:inline">{{ t("home.notes.delete") }}</span>
           </button>
         </div>
       </div>
     </div>
     <!-- Display created date -->
-    <div class="text-xs text-gray-400 mt-2">
-      <span class="font-medium">{{ note.createdAt }}</span>
+    <div class="text-xs text-gray-500 mt-2">
+      <time :datetime="note.createdAt" class="font-medium">{{ note.createdAt }}</time>
     </div>
   </div>
 </template>
