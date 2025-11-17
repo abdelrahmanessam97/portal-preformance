@@ -18,11 +18,94 @@ import { usePermissions } from "~/composables/usePermissions";
 import type { RoleDisplay, UserRow } from "~/data/permissions";
 import type { ApiError, EditingRole } from "~~/types/role";
 
+const { locale, t } = useI18n();
+const route = useRoute();
+const config = useRuntimeConfig();
+
+const pageTitle = "Permissions Management - Kandil Internal Portal";
+const pageDescription = "Manage user roles and permissions for Kandil Internal Portal.";
+const siteUrl = config.public.apiBase?.replace("/api", "") || "";
+const canonicalUrl = `${siteUrl}${route.path}`;
+
+// Structured Data (JSON-LD) for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: pageTitle,
+  description: pageDescription,
+  url: canonicalUrl,
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Kandil Internal Portal",
+    url: siteUrl,
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Permissions",
+        item: canonicalUrl,
+      },
+    ],
+  },
+};
+
+useHead({
+  title: pageTitle,
+  meta: [
+    {
+      name: "description",
+      content: pageDescription,
+    },
+    {
+      property: "og:title",
+      content: pageTitle,
+    },
+    {
+      property: "og:description",
+      content: pageDescription,
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: canonicalUrl,
+    },
+    {
+      name: "robots",
+      content: "noindex, nofollow",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: canonicalUrl,
+    },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify(structuredData),
+    },
+  ],
+  htmlAttrs: {
+    lang: locale.value || "en",
+  },
+});
+
 definePageMeta({
   middleware: "permission",
 });
-
-const { t } = useI18n();
 const { canCreate, canUpdate, canDelete } = usePermissions();
 
 /* state */
@@ -253,7 +336,7 @@ const translatedRoleColumns = computed(() => [
 <template>
   <section class="my-8 pb-16 min-h-screen mb-50">
     <div class="w-full flex items-center justify-between py-5 px-3 sm:px-4 md:px-5">
-      <h3 class="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold">{{ t("permissions.title") }}</h3>
+      <h1 class="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold">{{ t("permissions.title") }}</h1>
       <div class="flex items-center gap-2">
         <!-- Users tab -->
         <template v-if="activeTab === 'users'">

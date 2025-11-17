@@ -55,13 +55,15 @@ if (categoryId.value == null) {
 }
 
 // Only fetch category data if user has permission
-const { error, refresh, categoryDetail, assignedRolesToCategory, assignedAdminsToCategory } = hasReadPermission ? useGetCategory(categoryId.value) : {
-  error: ref(null),
-  refresh: () => Promise.resolve(),
-  categoryDetail: ref(null),
-  assignedRolesToCategory: ref([]),
-  assignedAdminsToCategory: ref([]),
-};
+const { error, refresh, categoryDetail, assignedRolesToCategory, assignedAdminsToCategory } = hasReadPermission
+  ? useGetCategory(categoryId.value)
+  : {
+      error: ref(null),
+      refresh: () => Promise.resolve(),
+      categoryDetail: ref(null),
+      assignedRolesToCategory: ref([]),
+      assignedAdminsToCategory: ref([]),
+    };
 
 const categoryTitle = computed(() => {
   if (!categoryDetail.value) return "";
@@ -69,6 +71,116 @@ const categoryTitle = computed(() => {
     ? categoryDetail.value.title_ar ?? categoryDetail.value.title_en ?? ""
     : categoryDetail.value.title_en ?? categoryDetail.value.title_ar ?? "";
 });
+
+// SEO Meta Tags - Dynamic based on category
+const config = useRuntimeConfig();
+const siteUrl = config.public.apiBase?.replace("/api", "") || "";
+const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
+
+const pageTitle = computed(() => {
+  if (!categoryTitle.value) return "Category - Kandil Internal Portal";
+  return `${categoryTitle.value} - Kandil Internal Portal`;
+});
+
+const pageDescription = computed(() => {
+  if (!categoryDetail.value) return "View category details and manage folders in Kandil Internal Portal.";
+  const title = categoryTitle.value;
+  return `View ${title} category details, folders, and manage your documents in Kandil Internal Portal.`;
+});
+
+// Structured Data (JSON-LD) for SEO
+const structuredData = computed(() => {
+  const baseData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageTitle.value,
+    description: pageDescription.value,
+    url: canonicalUrl.value,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Kandil Internal Portal",
+      url: siteUrl,
+    },
+  };
+
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteUrl,
+    },
+  ];
+
+  if (categoryTitle.value) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 2,
+      name: categoryTitle.value,
+      item: canonicalUrl.value,
+    });
+  }
+
+  return {
+    ...baseData,
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems,
+    },
+  };
+});
+
+// Watch categoryDetail and update meta tags
+watch(
+  [categoryDetail, categoryTitle, locale],
+  () => {
+    useHead({
+      title: pageTitle.value,
+      meta: [
+        {
+          name: "description",
+          content: pageDescription.value,
+        },
+        {
+          property: "og:title",
+          content: pageTitle.value,
+        },
+        {
+          property: "og:description",
+          content: pageDescription.value,
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: canonicalUrl.value,
+        },
+        {
+          property: "og:locale",
+          content: locale.value === "ar" ? "ar_EG" : "en_US",
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: canonicalUrl.value,
+        },
+      ],
+      script: [
+        {
+          type: "application/ld+json",
+          innerHTML: JSON.stringify(structuredData.value),
+        },
+      ],
+      htmlAttrs: {
+        lang: locale.value || "en",
+      },
+    });
+  },
+  { immediate: true, deep: true }
+);
 
 // Handle API errors - check immediately and watch for changes (only if user has permission)
 const handleCategoryError = (err: unknown) => {

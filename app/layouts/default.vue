@@ -2,6 +2,14 @@
 <template>
   <SidebarProvider>
     <div class="flex flex-col w-full min-h-screen">
+      <!-- Skip to main content link for accessibility -->
+      <a
+        href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+      >
+        Skip to main content
+      </a>
+
       <!-- Navbar (fixed, 4rem high) -->
       <Navbar class="fixed top-0 left-0 w-full z-50 h-16" />
 
@@ -16,11 +24,13 @@
 
         <!-- Main content -->
         <main
+          id="main-content"
           class="flex-1 px-6 py-6 overflow-x-hidden transition-all duration-300"
           :class="[isRtl ? 'lg:!pr-[calc(260px+1.5rem)]' : 'lg:!pl-[calc(260px+1.5rem)]']"
           :style="{
             [isRtl ? 'paddingRight' : 'paddingLeft']: isCollapsed ? '0' : undefined,
           }"
+          tabindex="-1"
         >
           <slot />
         </main>

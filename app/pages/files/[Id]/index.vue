@@ -173,6 +173,154 @@ const fileDescription = computed(() => {
   return locale.value === "ar" ? file.value?.description_ar : file.value?.description_en;
 });
 
+// SEO Meta Tags - Dynamic based on file
+const config = useRuntimeConfig();
+const siteUrl = config.public.apiBase?.replace("/api", "") || "";
+const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
+
+const pageTitle = computed(() => {
+  if (!fileName.value) return "File - Kandil Internal Portal";
+  return `${fileName.value} - Kandil Internal Portal`;
+});
+
+const pageDescription = computed(() => {
+  if (!file.value) return "View file details and manage documents in Kandil Internal Portal.";
+  const title = fileName.value || "File";
+  const desc = fileDescription.value ? ` - ${fileDescription.value}` : "";
+  return `View ${title} file details${desc} in Kandil Internal Portal.`;
+});
+
+// Structured Data (JSON-LD) for SEO - DocumentObject schema for files
+const structuredData = computed(() => {
+  const categoryName = folder.value?.category_title || "Category";
+  const folderName = folder.value ? (locale.value === "ar" ? folder.value.title_ar : folder.value.title_en) : null;
+
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteUrl,
+    },
+  ];
+
+  const categoryIdVal = folder.value?.category_id;
+  if (categoryIdVal) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 2,
+      name: categoryName,
+      item: `${siteUrl}/categories/${categoryIdVal}`,
+    });
+  }
+
+  if (folderId.value && folderName) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 3,
+      name: folderName,
+      item: `${siteUrl}/folders/${folderId.value}`,
+    });
+  }
+
+  if (fileName.value) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 4,
+      name: fileName.value,
+      item: canonicalUrl.value,
+    });
+  }
+
+  const baseSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageTitle.value,
+    description: pageDescription.value,
+    url: canonicalUrl.value,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Kandil Internal Portal",
+      url: siteUrl,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems,
+    },
+  };
+
+  // Add DocumentObject schema if file data is available
+  if (file.value) {
+    return [
+      baseSchema,
+      {
+        "@context": "https://schema.org",
+        "@type": "DocumentObject",
+        name: fileName.value,
+        description: fileDescription.value || "",
+        url: canonicalUrl.value,
+        dateCreated: file.value.created_at,
+        dateModified: file.value.updated_at,
+      },
+    ];
+  }
+
+  return baseSchema;
+});
+
+// Watch file and update meta tags
+watch(
+  [file, fileName, fileDescription, locale, folderId],
+  () => {
+    const schemaData = structuredData.value;
+    const scripts = Array.isArray(schemaData) ? schemaData : [schemaData];
+
+    useHead({
+      title: pageTitle.value,
+      meta: [
+        {
+          name: "description",
+          content: pageDescription.value,
+        },
+        {
+          property: "og:title",
+          content: pageTitle.value,
+        },
+        {
+          property: "og:description",
+          content: pageDescription.value,
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: canonicalUrl.value,
+        },
+        {
+          property: "og:locale",
+          content: locale.value === "ar" ? "ar_EG" : "en_US",
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: canonicalUrl.value,
+        },
+      ],
+      script: scripts.map((data) => ({
+        type: "application/ld+json",
+        innerHTML: JSON.stringify(data),
+      })),
+      htmlAttrs: {
+        lang: locale.value || "en",
+      },
+    });
+  },
+  { immediate: true, deep: true }
+);
+
 // Use assigned roles and admins from composable (includes role_id)
 const assignedRolesToFile = assignedRolesToFileFromComposable;
 const assignedAdminsToFile = assignedAdminsToFileFromComposable;

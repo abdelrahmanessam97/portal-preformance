@@ -23,21 +23,53 @@ const canonicalUrl = `${siteUrl}${route.path}`;
 const ogImage = `${siteUrl}/hero-bg.jpg`;
 
 // Structured Data (JSON-LD) for SEO
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Kandil Internal Portal",
-  description: pageDescription,
-  url: siteUrl,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Kandil Internal Portal",
+    description: pageDescription,
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
     },
-    "query-input": "required name=search_term_string",
   },
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Kandil Internal Portal",
+    url: siteUrl,
+    logo: `${siteUrl}/kandil-logo.png`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Kandil Internal Portal",
+      url: siteUrl,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteUrl,
+        },
+      ],
+    },
+  },
+];
 
 useHead({
   title: pageTitle,
@@ -121,13 +153,19 @@ useHead({
       href: "https://fonts.gstatic.com",
       crossorigin: "",
     },
-  ],
-  script: [
     {
-      type: "application/ld+json",
-      children: JSON.stringify(structuredData),
+      rel: "dns-prefetch",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "dns-prefetch",
+      href: "https://fonts.gstatic.com",
     },
   ],
+  script: structuredData.map((data) => ({
+    type: "application/ld+json",
+    innerHTML: JSON.stringify(data),
+  })),
   htmlAttrs: {
     lang: locale.value || "en",
   },
@@ -143,14 +181,38 @@ definePageMeta({
     <HomeHeroSection />
 
     <ClientOnly>
-      <HomeDateSection />
+      <Suspense>
+        <HomeDateSection />
+        <template #fallback>
+          <!-- optional placeholder to keep layout stable -->
+          <div aria-hidden="true" class="h-12" role="status" aria-busy="true" aria-live="polite">
+            <span class="sr-only">Loading calendar section...</span>
+          </div>
+        </template>
+      </Suspense>
       <template #fallback>
-        <!-- optional placeholder to keep layout stable -->
-        <div aria-hidden="true" class="h-12" />
+        <div aria-hidden="true" class="h-12" role="status" aria-busy="true" aria-live="polite">
+          <span class="sr-only">Loading calendar section...</span>
+        </div>
       </template>
     </ClientOnly>
 
-    <HomeNewsAndAnnouncementsSection v-if="canRead('news')" />
-    <HomeNotesSection />
+    <Suspense v-if="canRead('news')">
+      <HomeNewsAndAnnouncementsSection />
+      <template #fallback>
+        <div aria-hidden="true" class="h-32" role="status" aria-busy="true" aria-live="polite">
+          <span class="sr-only">Loading news section...</span>
+        </div>
+      </template>
+    </Suspense>
+
+    <Suspense>
+      <HomeNotesSection />
+      <template #fallback>
+        <div aria-hidden="true" class="h-32" role="status" aria-busy="true" aria-live="polite">
+          <span class="sr-only">Loading notes section...</span>
+        </div>
+      </template>
+    </Suspense>
   </main>
 </template>

@@ -75,13 +75,17 @@ const onSubmit = handleSubmit(async (values) => {
             type="email"
             :placeholder="t('auth.login.emailPlaceholder')"
             v-bind="componentField"
+            :aria-invalid="!!errorMessage"
+            :aria-describedby="errorMessage ? 'email-error' : undefined"
+            aria-required="true"
+            autocomplete="email"
             class="w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
           />
         </FormControl>
 
         <transition name="fade">
-          <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-            <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" /> {{ errorMessage }}
+          <p v-if="errorMessage" id="email-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+            <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" /> {{ errorMessage }}
           </p>
         </transition>
       </FormItem>
@@ -97,17 +101,27 @@ const onSubmit = handleSubmit(async (values) => {
               v-bind="componentField"
               :type="showPassword ? 'text' : 'password'"
               :placeholder="t('auth.login.passwordPlaceholder')"
+              :aria-invalid="!!errorMessage"
+              :aria-describedby="errorMessage ? 'password-error' : undefined"
+              aria-required="true"
+              autocomplete="current-password"
               class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
             />
-            <button type="button" class="absolute end-3 text-gray-500 cursor-pointer" @click="showPassword = !showPassword">
-              <component :is="showPassword ? EyeOff : Eye" class="w-5 h-5" />
+            <button
+              type="button"
+              class="absolute end-3 text-gray-600 hover:text-gray-900 cursor-pointer h-11 w-11 sm:h-8 sm:w-8 flex items-center justify-center rounded-full transition-colors"
+              :aria-label="showPassword ? t('auth.login.hidePassword') || 'Hide password' : t('auth.login.showPassword') || 'Show password'"
+              :aria-pressed="showPassword"
+              @click="showPassword = !showPassword"
+            >
+              <component :is="showPassword ? EyeOff : Eye" class="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </FormControl>
 
         <transition name="fade">
-          <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-            <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" /> {{ errorMessage }}
+          <p v-if="errorMessage" id="password-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+            <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" /> {{ errorMessage }}
           </p>
         </transition>
       </FormItem>
@@ -132,8 +146,9 @@ const onSubmit = handleSubmit(async (values) => {
     <!-- Submit -->
     <Button
       type="submit"
-      class="w-full bg-[#169CC2] shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75"
+      class="w-full bg-[#169CC2] shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75 h-11 sm:h-8"
       :disabled="!meta.valid || isSubmitting"
+      :aria-busy="isSubmitting"
     >
       {{ isSubmitting ? t("auth.login.signingIn") : t("auth.login.loginButton") }}
     </Button>
