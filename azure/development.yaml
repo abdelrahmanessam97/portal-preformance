@@ -1,0 +1,41 @@
+trigger:
+- dev
+
+resources:
+- repo: self
+
+variables:
+  imageName: 'kandil-steel-portal-front-dev'
+
+pool:
+  name: develop-server
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        steps: 
+          - checkout: self
+            path: $(imageName)
+          - script: |
+              cd $(Build.SourcesDirectory)
+              sudo mv .env.dev .env
+              sudo docker build -t $(imageName) -f Dockerfile.nuxt .
+
+  - stage: Deploy
+    displayName: Deploy image
+    jobs:
+      - deployment: Deploy  
+        displayName: Deploy
+        environment: development  
+        strategy:
+          runOnce:
+            deploy:
+              steps: 
+                - script: |
+                    sudo docker rm -f $(imageName) || true
+                    sudo docker run --name $(imageName) --network xyris_network -d  --restart=unless-stopped $(imageName)
+
+

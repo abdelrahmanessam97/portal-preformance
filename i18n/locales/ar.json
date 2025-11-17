@@ -1,0 +1,531 @@
+{
+  "welcome": "مرحبا",
+  "page": {
+    "home": {
+      "title": "الصفحة الرئيسية - بوابة قنديل الداخلية",
+      "description": "مرحبًا بك في الصفحة الرئيسية لتطبيقي.",
+      "keywords": "الرئيسية، تطبيقي، ملاحظات، أخبار"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "قنديل للصلب",
+      "description": "قوة مصنوعة من الصلب، بنيت لتدوم"
+    },
+    "dateSection": {
+      "reminders": "التذكيرات",
+      "noRemindersYet": "لا توجد تذكيرات حتى الآن",
+      "addReminder": "إضافة تذكير"
+    },
+    "reminders": {
+      "placeholder": "أضف تذكيرًا سريعًا…",
+      "validation": "يرجى إضافة بضع كلمات لتذكيرك.",
+      "validationTitle": "يرجى التحقق",
+      "invalidReminder": "تذكير غير صالح.",
+      "saveTitle": "حفظ",
+      "doneTitle": "تم",
+      "deleteTitle": "حذف"
+    },
+    "news": {
+      "title": "الأخبار والإعلانات",
+      "loading": "جاري التحميل…",
+      "emptyState": "لم يتم العثور على أخبار أو إعلانات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "at": "في",
+      "addDialogTitle": "إضافة أخبار وإعلانات",
+      "editDialogTitle": "تعديل الأخبار والإعلانات",
+      "titleEnglish": "العنوان (إنجليزي)",
+      "titleArabic": "العنوان (عربي)",
+      "descriptionEnglish": "الوصف (إنجليزي)",
+      "descriptionArabic": "الوصف (عربي)",
+      "addPhoto": "إضافة صورة (الحد الأقصى 5)",
+      "cancel": "إلغاء",
+      "add": "إضافة",
+      "saveChanges": "حفظ التغييرات",
+      "required": "*",
+      "validationTitleEn": "العنوان الإنجليزي مطلوب",
+      "validationTitleAr": "العنوان العربي مطلوب",
+      "validationDescEn": "الوصف الإنجليزي مطلوب",
+      "validationDescAr": "الوصف العربي مطلوب"
+    },
+    "notes": {
+      "title": "ملاحظاتي",
+      "emptyState": "لم يتم العثور على ملاحظات",
+      "noNotesAvailable": "لا توجد ملاحظات متاحة.",
+      "placeholder": "اكتب ملاحظتك...",
+      "fieldRequired": "الحقل مطلوب.",
+      "save": "حفظ",
+      "delete": "حذف",
+      "failedToLoad": "فشل تحميل الملاحظات.",
+      "validationMaxLength": "يجب ألا يتجاوز حقل الوصف 500 حرف."
+    }
+  },
+  "recycleBin": {
+    "title": "سلة المحذوفات",
+    "tabs": {
+      "categories": "الفئات",
+      "folders": "المجلدات",
+      "files": "الملفات",
+      "documents": "المستندات"
+    },
+    "allCategories": "جميع الفئات",
+    "allFolders": "جميع المجلدات",
+    "allFiles": "جميع الملفات",
+    "allDocuments": "جميع المستندات",
+    "searchPlaceholder": "البحث بالاسم",
+    "restore": "استعادة",
+    "untitled": "بدون عنوان",
+    "emptyState": {
+      "categories": "لم يتم العثور على فئات محذوفة",
+      "folders": "لم يتم العثور على مجلدات محذوفة",
+      "files": "لم يتم العثور على ملفات محذوفة",
+      "documents": "لم يتم العثور على مستندات محذوفة",
+      "default": "لم يتم العثور على عناصر محذوفة"
+    },
+    "toast": {
+      "restoreCategoryFailed": "فشل استعادة الفئة",
+      "restoreItemFailed": "فشل استعادة العنصر",
+      "restored": "تمت الاستعادة",
+      "restoreFailed": "فشلت الاستعادة",
+      "refreshFailed": "فشل تحديث البيانات"
+    }
+  },
+  "nav": {
+    "openSidebar": "فتح الشريط الجانبي",
+    "goHome": "الذهاب إلى الرئيسية",
+    "companyLogo": "شعار الشركة",
+    "outlook": "فتح Outlook",
+    "search": "بحث"
+  },
+  "avatar": {
+    "changePassword": "تغيير كلمة المرور",
+    "signOut": "تسجيل الخروج",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح"
+  },
+  "permissions": {
+    "title": "الأدوار والصلاحيات",
+    "tabs": {
+      "users": "المستخدمون",
+      "roles": "الأدوار"
+    },
+    "selected": "المحدد",
+    "searchPlaceholder": "بحث",
+    "newUser": "مستخدم جديد",
+    "newRole": "دور جديد",
+    "notAssigned": "غير محدد",
+    "unknownRole": "دور غير معروف",
+    "table": {
+      "columns": {
+        "userId": "رقم المستخدم",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "status": "الحالة",
+        "roleId": "رقم الدور",
+        "roleName": "اسم الدور",
+        "permissions": "الصلاحيات",
+        "users": "المستخدمون"
+      },
+      "noResults": "لم يتم العثور على نتائج",
+      "tryAdjusting": "حاول تعديل بحثك أو المرشحات",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "results": "نتائج",
+      "perPage": "لكل صفحة"
+    },
+    "user": {
+      "addTitle": "إضافة مستخدم جديد",
+      "editTitle": "تعديل مستخدم",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "role": "الدور",
+      "userNamePlaceholder": "اسم المستخدم",
+      "userEmailPlaceholder": "بريد المستخدم الإلكتروني",
+      "selectRole": "اختر دورًا",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "update": "تحديث",
+      "creating": "جاري الإنشاء...",
+      "updating": "جاري التحديث...",
+      "validation": {
+        "nameRequired": "الاسم الكامل مطلوب",
+        "nameLength": "يجب أن يكون الاسم الكامل بين 5 و 100 حرف",
+        "nameLetters": "يجب أن يحتوي الاسم الكامل على أحرف فقط",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "الرجاء إدخال عنوان بريد إلكتروني صحيح",
+        "roleRequired": "الدور مطلوب"
+      },
+      "toast": {
+        "emailExists": "البريد الإلكتروني مرتبط بالفعل بحساب موجود",
+        "creationFailed": "فشل الإنشاء",
+        "couldNotCreate": "تعذر إنشاء المستخدم.",
+        "createdSuccess": "تم الإنشاء بنجاح.",
+        "updateFailed": "فشل التحديث",
+        "couldNotUpdate": "تعذر تحديث المستخدم.",
+        "updatedSuccess": "تم التحديث بنجاح.",
+        "emailUpdated": "تم تحديث البريد الإلكتروني. تم إرسال كلمة المرور الجديدة للمستخدم.",
+        "operationFailed": "فشلت العملية",
+        "unexpectedError": "حدث خطأ غير متوقع",
+        "disabledSuccess": "تم تعطيل المستخدم بنجاح",
+        "disableFailed": "فشل تعطيل المستخدم",
+        "restoredSuccess": "تم استعادة المستخدم بنجاح",
+        "restoreFailed": "فشل استعادة المستخدم",
+        "fetchFailed": "فشل جلب المستخدمين",
+        "couldNotLoad": "تعذر تحميل المستخدمين."
+      }
+    },
+    "role": {
+      "addTitle": "إضافة دور جديد",
+      "editTitle": "تعديل دور",
+      "roleName": "اسم الدور",
+      "permissions": "الصلاحيات",
+      "enterRoleName": "أدخل اسم الدور",
+      "selectAll": "تحديد الكل",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "updating": "جاري التحديث...",
+      "validation": {
+        "nameRequired": "اسم الدور مطلوب",
+        "nameLength": "يجب أن يكون اسم الدور بين 3 و 50 حرف",
+        "nameMinLength": "يجب أن يكون اسم الدور 3 أحرف على الأقل",
+        "nameMaxLength": "يجب ألا يتجاوز اسم الدور 50 حرف",
+        "selectPermission": "الرجاء تحديد صلاحية واحدة على الأقل"
+      },
+      "toast": {
+        "nameExists": "اسم الدور موجود بالفعل",
+        "createFailed": "فشل إنشاء الدور",
+        "updateFailed": "فشل تحديث الدور",
+        "createdSuccess": "تم إنشاء الدور بنجاح",
+        "updatedSuccess": "تم تحديث الدور بنجاح",
+        "deletedSuccess": "تم حذف الدور بنجاح",
+        "deleteFailed": "فشل حذف الدور",
+        "couldNotDelete": "تعذر حذف الدور.",
+        "fetchFailed": "فشل جلب الأدوار",
+        "couldNotLoad": "تعذر تحميل الأدوار.",
+        "unexpectedError": "حدث خطأ غير متوقع",
+        "roleAssignedTo": "تم تعيين الدور \"{roleName}\" إلى {count} مستخدم(ين)",
+        "assignFailed": "فشل تعيين الدور"
+      },
+      "loadPermissionsFailed": "فشل تحميل الصلاحيات"
+    },
+    "bulk": {
+      "title": "إجراءات مجمعة",
+      "restore": "استعادة (تعيين نشط)",
+      "disable": "تعطيل (تعيين غير نشط)",
+      "toast": {
+        "restoredSuccess": "تم استعادة المستخدمين بنجاح",
+        "disabledSuccess": "تم تعطيل المستخدمين بنجاح",
+        "actionFailed": "فشل تنفيذ الإجراء المجمع"
+      }
+    },
+    "assign": {
+      "title": "تعيين دور",
+      "description": "تعيين نفس الدور إلى {count} موظف(ين) محدد(ين).",
+      "role": "الدور",
+      "selectRole": "اختر دورًا",
+      "cancel": "إلغاء",
+      "save": "حفظ"
+    },
+    "delete": {
+      "activateUser": "تفعيل هذا المستخدم؟",
+      "deactivateUser": "تعطيل هذا المستخدم؟",
+      "deleteRole": "هل أنت متأكد من حذف هذا الدور؟",
+      "cancel": "إلغاء",
+      "confirm": "تأكيد"
+    },
+    "required": "*"
+  },
+  "categories": {
+    "breadcrumb": "الفئات",
+    "allFolders": "جميع المجلدات",
+    "createFolder": "إنشاء مجلد جديد",
+    "editCategory": "تعديل الفئة",
+    "deleteCategory": "حذف الفئة",
+    "search": "بحث",
+    "noFoldersFound": "لم يتم العثور على مجلدات",
+    "categoryUpdated": "تم تحديث الفئة",
+    "categoryDeleted": "تم حذف الفئة",
+    "folderCreated": "تم إنشاء المجلد",
+    "folderCreationFailed": "فشل إنشاء المجلد",
+    "updateFailed": "فشل التحديث",
+    "deleteFailed": "فشل الحذف",
+    "noPermission": "لا يوجد وصول",
+    "noPermissionDescription": "ليس لديك صلاحية لعرض هذه الفئة"
+  },
+  "folders": {
+    "breadcrumb": "المجلدات",
+    "allFiles": "جميع الملفات",
+    "createFile": "إنشاء ملف جديد",
+    "editFolder": "تعديل المجلد",
+    "deleteFolder": "حذف المجلد",
+    "search": "بحث",
+    "noFilesFound": "لم يتم العثور على ملفات",
+    "folderUpdated": "تم تحديث المجلد",
+    "folderDeleted": "تم حذف المجلد",
+    "fileCreated": "تم إنشاء الملف",
+    "fileCreationFailed": "فشل إنشاء الملف",
+    "updateFailed": "فشل التحديث",
+    "deleteFailed": "فشل الحذف",
+    "loadError": "فشل تحميل المجلد",
+    "loadErrorDescription": "حدث خطأ أثناء تحميل المجلد",
+    "noPermission": "لا يوجد وصول",
+    "noPermissionDescription": "ليس لديك صلاحية لعرض هذا المجلد"
+  },
+  "files": {
+    "breadcrumb": "الملفات",
+    "allDocuments": "جميع المستندات",
+    "addDocument": "إضافة مستند",
+    "editFile": "تعديل الملف",
+    "deleteFile": "حذف الملف",
+    "accessibility": "إمكانية الوصول",
+    "noPermission": "لا يوجد وصول",
+    "noPermissionDescription": "ليس لديك صلاحية لعرض هذا الملف",
+    "search": "بحث",
+    "noDocumentsFound": "لم يتم العثور على مستندات",
+    "fileUpdated": "تم تحديث الملف",
+    "fileDeleted": "تم حذف الملف",
+    "documentAdded": "تم إضافة المستند",
+    "documentsAdded": "تمت إضافة {count} مستند بنجاح",
+    "updateFailed": "فشل التحديث",
+    "deleteFailed": "فشل الحذف",
+    "bulkActions": "إجراءات جماعية",
+    "processing": "جارٍ المعالجة...",
+    "deselectAll": "إلغاء تحديد الكل",
+    "selectAll": "تحديد الكل",
+    "downloading": "جارٍ التنزيل...",
+    "downloadSelected": "تنزيل المحدد ({count})",
+    "deleteSelected": "حذف المحدد ({count})",
+    "description": "الوصف",
+    "documents": "إضافة المستندات",
+    "download": "تنزيل",
+    "bulkDeleteTitle": "هل أنت متأكد من حذف {count} مستند؟",
+    "bulkDeleteDescription": "سيتم نقل المستندات المحددة إلى سلة المحذوفات والاحتفاظ بها لمدة 30 يومًا قبل الحذف الدائم.",
+    "manageAccess": "إدارة الوصول إلى المستند",
+    "rename": "إعادة تسمية"
+  },
+  "dialog": {
+    "create": {
+      "folderTitle": "إنشاء مجلد جديد",
+      "fileTitle": "إنشاء ملف جديد",
+      "categoryTitle": "إنشاء فئة جديدة"
+    },
+    "edit": {
+      "folderTitle": "تعديل المجلد",
+      "fileTitle": "تعديل الملف",
+      "categoryTitle": "تعديل الفئة"
+    },
+    "delete": {
+      "title": "هل أنت متأكد؟",
+      "categoryDescription": "سيتم نقل جميع المحتويات في هذه الفئة إلى سلة المحذوفات والاحتفاظ بها لمدة 30 يومًا قبل الحذف الدائم.",
+      "folderDescription": "سيتم نقل جميع المحتويات في هذا المجلد إلى سلة المحذوفات والاحتفاظ بها لمدة 30 يومًا قبل الحذف الدائم.",
+      "fileDescription": "سيتم نقل هذا الملف إلى سلة المحذوفات والاحتفاظ به لمدة 30 يومًا قبل الحذف الدائم.",
+      "documentDescription": "سيتم نقل هذا المستند إلى سلة المحذوفات والاحتفاظ به لمدة 30 يومًا قبل الحذف الدائم.",
+      "confirm": "حذف",
+      "cancel": "إلغاء"
+    },
+    "labels": {
+      "categoryName": "اسم الفئة",
+      "folderName": "اسم المجلد",
+      "fileName": "اسم الملف",
+      "english": "إنجليزي",
+      "arabic": "عربي",
+      "viewPermissions": "اختر من يمكنه عرض هذا",
+      "byRole": "حسب الدور",
+      "byUsers": "حسب المستخدمين",
+      "searchRoles": "بحث عن الأدوار",
+      "searchUsers": "بحث عن المستخدمين",
+      "noRolesAvailable": "لا توجد أدوار متاحة.",
+      "noUsersAvailable": "لا يوجد مستخدمون متاحون.",
+      "required": "*"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saveChanges": "حفظ التغييرات"
+    },
+    "validation": {
+      "nameEnRequired": "{label} (إنجليزي) مطلوب",
+      "nameArRequired": "{label} (عربي) مطلوب"
+    }
+  },
+  "search": {
+    "placeholder": "بحث...",
+    "searchButton": "بحث",
+    "searchFailed": "فشل البحث",
+    "tryAgain": "حاول مرة أخرى",
+    "noResults": "لم يتم العثور على نتائج لـ '{query}'",
+    "tryDifferent": "جرب مصطلح بحث مختلف",
+    "file": "ملف",
+    "folder": "مجلد",
+    "category": "فئة",
+    "attachment": "مستند"
+  },
+  "footer": {
+    "copyright": "© {year} شركة قنديل للحديد. جميع الحقوق محفوظة."
+  },
+  "fileDialogs": {
+    "accessibility": {
+      "title": "إمكانية الوصول",
+      "selectWhoView": "اختر من يمكنه عرض هذا الملف"
+    },
+    "addDocument": {
+      "title": "إضافة مستند (مستندات)",
+      "documents": "المستندات",
+      "upload": "تحميل (.doc، .txt، .pdf، .xlsx، ...)",
+      "changeFile": "تغيير الملف",
+      "nameEnglish": "اسم المستند (إنجليزي)",
+      "nameArabic": "اسم المستند (عربي)",
+      "documentName": "اسم المستند",
+      "namePlaceholder": "اسم المستند",
+      "namePlaceholderAr": "اسم الملف",
+      "lockDocument": "من يمكنه عرض هذا المستند",
+      "selectWhoView": "اختر من يمكنه عرض هذا المستند",
+      "addNewDocument": "إضافة مستند جديد",
+      "maximum": "تم الوصول إلى الحد الأقصى {max} مستند",
+      "uploadError": "يرجى اختيار مستند واحد على الأقل للتحميل",
+      "uploadFailed": "فشل تحميل {count} مستند",
+      "failedToUpload": "فشل تحميل المستند"
+    },
+    "editFile": {
+      "title": "تعديل محتوى الملف",
+      "nameEnglish": "اسم الملف (إنجليزي)",
+      "nameArabic": "اسم الملف (عربي)",
+      "descriptionEnglish": "الوصف (إنجليزي)",
+      "descriptionArabic": "الوصف (عربي)",
+      "selectWhoView": "اختر من يمكنه عرض هذا الملف",
+      "updateSuccess": "تم تحديث الملف بنجاح",
+      "updateFailed": "فشل تحديث الملف"
+    },
+    "rename": {
+      "title": "إعادة تسمية المستند",
+      "documentName": "اسم المستند",
+      "enterDocumentName": "أدخل اسم المستند",
+      "titleRequired": "العنوان مطلوب",
+      "renameFailed": "فشل إعادة تسمية المستند",
+      "updatedSuccess": "تم التحديث بنجاح.",
+      "failedToRename": "فشل إعادة التسمية: {errorMessage}"
+    },
+    "common": {
+      "byRole": "حسب الدور",
+      "byUsers": "حسب المستخدمين",
+      "searchRoles": "بحث عن الأدوار",
+      "searchUsers": "بحث عن المستخدمين",
+      "noRolesAvailable": "لا توجد أدوار متاحة.",
+      "noUsersAvailable": "لا يوجد مستخدمون متاحون.",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "add": "إضافة",
+      "required": "*"
+    }
+  },
+  "sidebar": {
+    "home": "الرئيسية",
+    "categories": "الفئات",
+    "noCategoriesAvailable": "لا توجد فئات متاحة",
+    "addNewCategory": "إضافة فئة جديدة",
+    "createNewCategory": "إنشاء فئة جديدة",
+    "categoryName": "اسم الفئة",
+    "rolesAndPermissions": "الأدوار والصلاحيات",
+    "recycleBin": "سلة المحذوفات"
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "عنوان البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "emailPlaceholder": "you{'@'}example.com",
+      "passwordPlaceholder": "********",
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "signingIn": "جارٍ تسجيل الدخول…",
+      "loginButton": "تسجيل الدخول",
+      "validation": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "يجب أن يكون البريد الإلكتروني صحيحاً",
+        "passwordRequired": "كلمة المرور مطلوبة"
+      },
+      "toast": {
+        "success": "تم تسجيل الدخول بنجاح",
+        "welcomeBack": "أهلاً بعودتك، {name}",
+        "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+        "notVerified": "الحساب غير مُتحقق منه",
+        "verificationRequired": "يرجى التحقق من حسابك قبل تسجيل الدخول"
+      }
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور",
+      "rememberPassword": "تذكرت كلمة المرور؟",
+      "signIn": "تسجيل الدخول",
+      "email": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "you{'@'}example.com",
+      "send": "إرسال",
+      "sending": "جارٍ الإرسال…",
+      "validation": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً"
+      },
+      "toast": {
+        "success": "تم إرسال بريد إعادة تعيين كلمة المرور بنجاح.",
+        "messageSent": "إذا كان هذا البريد مُسجلاً، سوف تتلقى كلمة مرور جديدة قريباً.",
+        "failed": "فشل إرسال بريد إعادة تعيين كلمة المرور."
+      }
+    },
+    "confirmPassword": {
+      "title": "إعادة تعيين كلمة المرور",
+      "resettingFor": "إعادة التعيين للبريد: {email}",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "passwordPlaceholder": "********",
+      "submit": "إرسال",
+      "submitting": "جارٍ الإرسال…",
+      "resendAvailable": "إعادة الإرسال متاحة في",
+      "didntGetMail": "لم تتلق البريد؟",
+      "resend": "إعادة إرسال",
+      "validation": {
+        "passwordMin": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+        "passwordPolicy": "يجب أن تتضمن أحرفاً كبيرة وصغيرة ورقماً ورمزاً خاصاً",
+        "confirmPasswordMin": "يجب أن تتكون كلمة التأكيد من 8 أحرف على الأقل",
+        "passwordsMatch": "كلمات المرور غير متطابقة"
+      },
+      "toast": {
+        "success": "تم إعادة تعيين كلمة المرور بنجاح",
+        "failed": "فشل إعادة تعيين كلمة المرور",
+        "emailMissing": "البريد الإلكتروني مفقود. يرجى طلب بريد إعادة تعيين جديد.",
+        "emailNotFound": "لم نتمكن من العثور على بريدك الإلكتروني. يرجى طلب بريد إعادة تعيين جديد.",
+        "resendSuccess": "تم إعادة إرسال بريد إعادة تعيين كلمة المرور بنجاح",
+        "resendFailed": "فشل إعادة إرسال بريد كلمة المرور."
+      }
+    },
+    "changePassword": {
+      "title": "تغيير كلمة المرور",
+      "oldPassword": "كلمة المرور القديمة",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "passwordPlaceholder": "********",
+      "submit": "إرسال",
+      "submitting": "جارٍ الإرسال…",
+      "validation": {
+        "oldPasswordRequired": "كلمة المرور القديمة مطلوبة",
+        "passwordMin": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+        "passwordPolicy": "يجب أن تتضمن أحرفاً كبيرة وصغيرة ورقماً ورمزاً خاصاً",
+        "confirmPasswordMin": "يجب أن تتكون كلمة التأكيد من 8 أحرف على الأقل",
+        "passwordsMatch": "كلمات المرور غير متطابقة",
+        "passwordDifferent": "يجب أن تكون كلمة المرور الجديدة مختلفة عن القديمة"
+      },
+      "toast": {
+        "success": "تم تحديث كلمة المرور بنجاح",
+        "failed": "فشل تحديث كلمة المرور"
+      }
+    }
+  },
+  "error": {
+    "pageNotFound": "الصفحة غير موجودة",
+    "description404": "قد تكون الصفحة التي تبحث عنها قد تمت إزالتها، أو تغير اسمها، أو غير متوفرة مؤقتاً.",
+    "backToHome": "العودة إلى الرئيسية",
+    "genericError": "حدث خطأ ما",
+    "altLogo": "قنديل للصلب"
+  }
+}

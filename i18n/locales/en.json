@@ -1,0 +1,531 @@
+{
+  "welcome": "Welcome",
+  "page": {
+    "home": {
+      "title": "Home Page - Kandil Internal Portal",
+      "description": "Welcome to the home page of My Application.",
+      "keywords": "home, my application, notes, news"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "KANDIL STEEL",
+      "description": "STRENGTH FORGED IN STEEL, BUILT TO LAST"
+    },
+    "dateSection": {
+      "reminders": "Reminders",
+      "noRemindersYet": "No reminders yet",
+      "addReminder": "Add Reminder"
+    },
+    "reminders": {
+      "placeholder": "Add a quick reminder…",
+      "validation": "Please add a few words for your reminder.",
+      "validationTitle": "Please check",
+      "invalidReminder": "Invalid reminder.",
+      "saveTitle": "Save",
+      "doneTitle": "Done",
+      "deleteTitle": "Delete"
+    },
+    "news": {
+      "title": "News & Announcements",
+      "loading": "Loading…",
+      "emptyState": "No News or Announcements Found",
+      "edit": "Edit",
+      "delete": "Delete",
+      "at": "at",
+      "addDialogTitle": "Add News & Announcements",
+      "editDialogTitle": "Edit News & Announcements",
+      "titleEnglish": "Title (English)",
+      "titleArabic": "Title (Arabic)",
+      "descriptionEnglish": "Description (English)",
+      "descriptionArabic": "Description (Arabic)",
+      "addPhoto": "Add Photo (Max 5)",
+      "cancel": "Cancel",
+      "add": "Add",
+      "saveChanges": "Save Changes",
+      "required": "*",
+      "validationTitleEn": "English title is required",
+      "validationTitleAr": "Arabic title is required",
+      "validationDescEn": "English description is required",
+      "validationDescAr": "Arabic description is required"
+    },
+    "notes": {
+      "title": "My Notes",
+      "emptyState": "No Notes Found",
+      "noNotesAvailable": "No notes available.",
+      "placeholder": "Write your note...",
+      "fieldRequired": "Field is required.",
+      "save": "Save",
+      "delete": "Delete",
+      "failedToLoad": "Failed to load notes.",
+      "validationMaxLength": "The description field must not be greater than 500 characters."
+    }
+  },
+  "recycleBin": {
+    "title": "Recycle Bin",
+    "tabs": {
+      "categories": "Categories",
+      "folders": "Folders",
+      "files": "Files",
+      "documents": "Documents"
+    },
+    "allCategories": "All Categories",
+    "allFolders": "All Folders",
+    "allFiles": "All Files",
+    "allDocuments": "All Documents",
+    "searchPlaceholder": "Search by name",
+    "restore": "Restore",
+    "untitled": "Untitled",
+    "emptyState": {
+      "categories": "No deleted categories found",
+      "folders": "No deleted folders found",
+      "files": "No deleted files found",
+      "documents": "No deleted documents found",
+      "default": "No deleted items found"
+    },
+    "toast": {
+      "restoreCategoryFailed": "Failed to restore category",
+      "restoreItemFailed": "Failed to restore item",
+      "restored": "restored",
+      "restoreFailed": "Restore failed",
+      "refreshFailed": "Failed to refresh data"
+    }
+  },
+  "nav": {
+    "openSidebar": "Open sidebar",
+    "goHome": "Go home",
+    "companyLogo": "Company logo",
+    "outlook": "Open Outlook",
+    "search": "Search"
+  },
+  "avatar": {
+    "changePassword": "Change password",
+    "signOut": "Sign Out",
+    "logoutSuccess": "Logged out successfully"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "searchButton": "Search",
+    "searchFailed": "Search failed. Please try again.",
+    "tryAgain": "Try again",
+    "noResults": "No results found for \"{query}\"",
+    "tryDifferent": "Try different keywords or check your spelling",
+    "category": "Category",
+    "folder": "Folder",
+    "file": "File",
+    "attachment": "Attachment"
+  },
+  "footer": {
+    "copyright": "© {year} Kandil Steel, Inc. All rights reserved."
+  },
+  "permissions": {
+    "title": "Role & Permissions",
+    "tabs": {
+      "users": "Users",
+      "roles": "Roles"
+    },
+    "selected": "Selected",
+    "searchPlaceholder": "Search",
+    "newUser": "New User",
+    "newRole": "New Role",
+    "notAssigned": "not assign",
+    "unknownRole": "Unknown Role",
+    "table": {
+      "columns": {
+        "userId": "User ID",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "roleId": "Role ID",
+        "roleName": "Role Name",
+        "permissions": "Permissions",
+        "users": "Users"
+      },
+      "noResults": "No results found",
+      "tryAdjusting": "Try adjusting your search or filters",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "results": "results",
+      "perPage": "Per Page"
+    },
+    "user": {
+      "addTitle": "Add New User",
+      "editTitle": "Edit User",
+      "fullName": "Full Name",
+      "email": "Email",
+      "role": "Role",
+      "userNamePlaceholder": "User Name",
+      "userEmailPlaceholder": "User Email",
+      "selectRole": "Select a Role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "update": "Update",
+      "creating": "Creating...",
+      "updating": "Updating...",
+      "validation": {
+        "nameRequired": "Full Name is required",
+        "nameLength": "Full name should be between 5 and 100 characters",
+        "nameLetters": "Full name must only contain letters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "roleRequired": "Role is required"
+      },
+      "toast": {
+        "emailExists": "Email is already associated with an existing account",
+        "creationFailed": "Creation failed",
+        "couldNotCreate": "Could not create the user.",
+        "createdSuccess": "Created successfully.",
+        "updateFailed": "Update failed",
+        "couldNotUpdate": "Could not update the user.",
+        "updatedSuccess": "Updated successfully.",
+        "emailUpdated": "Email updated. New password sent to the user.",
+        "operationFailed": "Operation failed",
+        "unexpectedError": "An unexpected error occurred",
+        "disabledSuccess": "User disabled successfully",
+        "disableFailed": "Failed to disable user",
+        "restoredSuccess": "User restored successfully",
+        "restoreFailed": "Failed to restore user",
+        "fetchFailed": "Failed to fetch users",
+        "couldNotLoad": "Could not load users."
+      }
+    },
+    "role": {
+      "addTitle": "Add New Role",
+      "editTitle": "Edit Role",
+      "roleName": "Role Name",
+      "permissions": "Permissions",
+      "enterRoleName": "Enter role name",
+      "selectAll": "Select All",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "updating": "Updating...",
+      "validation": {
+        "nameRequired": "Role name is required",
+        "nameLength": "Role name must be between 3 and 50 characters",
+        "nameMinLength": "Role name must be at least 3 characters",
+        "nameMaxLength": "Role name must not exceed 50 characters",
+        "selectPermission": "Please select at least one permission"
+      },
+      "toast": {
+        "nameExists": "Role name already exists",
+        "createFailed": "Failed to create role",
+        "updateFailed": "Failed to update role",
+        "createdSuccess": "Role created successfully",
+        "updatedSuccess": "Role updated successfully",
+        "deletedSuccess": "Role deleted successfully",
+        "deleteFailed": "Failed to delete role",
+        "couldNotDelete": "Could not delete the role.",
+        "fetchFailed": "Failed to fetch roles",
+        "couldNotLoad": "Could not load roles.",
+        "unexpectedError": "An unexpected error occurred",
+        "roleAssignedTo": "Role \"{roleName}\" assigned to {count} user(s)",
+        "assignFailed": "Failed to assign role"
+      },
+      "loadPermissionsFailed": "Failed to load permissions"
+    },
+    "bulk": {
+      "title": "Bulk Actions",
+      "restore": "Restore (Set Active)",
+      "disable": "Disable (Set Inactive)",
+      "toast": {
+        "restoredSuccess": "Users restored successfully",
+        "disabledSuccess": "Users disabled successfully",
+        "actionFailed": "Failed to perform bulk action"
+      }
+    },
+    "assign": {
+      "title": "Assign Role",
+      "description": "Assign the same role to {count} selected employee{plural}.",
+      "role": "Role",
+      "selectRole": "Select a Role",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "delete": {
+      "activateUser": "Activate this user?",
+      "deactivateUser": "Deactivate this user?",
+      "deleteRole": "Are you sure you want to delete this role?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "required": "*"
+  },
+  "categories": {
+    "breadcrumb": "Categories",
+    "allFolders": "All Folders",
+    "createFolder": "Create New Folder",
+    "editCategory": "Edit Category",
+    "deleteCategory": "Delete Category",
+    "search": "Search",
+    "noFoldersFound": "No folders found",
+    "categoryUpdated": "Category updated",
+    "categoryDeleted": "Category deleted",
+    "folderCreated": "Folder created",
+    "folderCreationFailed": "Folder creation failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "noPermission": "No Access",
+    "noPermissionDescription": "You don't have permission to view this category"
+  },
+  "folders": {
+    "breadcrumb": "Folders",
+    "allFiles": "All Files",
+    "createFile": "Create New File",
+    "editFolder": "Edit Folder",
+    "deleteFolder": "Delete Folder",
+    "search": "Search",
+    "noFilesFound": "No files found",
+    "folderUpdated": "Folder updated",
+    "folderDeleted": "Folder deleted",
+    "fileCreated": "File created",
+    "fileCreationFailed": "File creation failed",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "loadError": "Failed to load folder",
+    "loadErrorDescription": "An error occurred while loading the folder",
+    "noPermission": "No Access",
+    "noPermissionDescription": "You don't have permission to view this folder"
+  },
+  "files": {
+    "breadcrumb": "Files",
+    "allDocuments": "All Documents",
+    "addDocument": "Add Document",
+    "editFile": "Edit File",
+    "deleteFile": "Delete File",
+    "accessibility": "Accessibility",
+    "search": "Search",
+    "noDocumentsFound": "No documents found",
+    "fileUpdated": "File updated",
+    "fileDeleted": "File deleted",
+    "documentAdded": "Document added",
+    "documentsAdded": "{count} document(s) added successfully",
+    "updateFailed": "Update failed",
+    "deleteFailed": "Delete failed",
+    "noPermission": "No Access",
+    "noPermissionDescription": "You don't have permission to view this file",
+    "bulkActions": "Bulk Actions",
+    "processing": "Processing...",
+    "deselectAll": "Deselect all",
+    "selectAll": "Select all",
+    "downloading": "Downloading...",
+    "downloadSelected": "Download selected ({count})",
+    "deleteSelected": "Delete selected ({count})",
+    "description": "Description",
+    "documents": "Add Documents",
+    "download": "Download",
+    "bulkDeleteTitle": "Are you sure you want to delete {count} document(s)?",
+    "bulkDeleteDescription": "Selected documents will be moved to the recycle bin and kept for 30 days before being permanently deleted.",
+    "manageAccess": "Manage document access",
+    "rename": "Rename"
+  },
+  "dialog": {
+    "create": {
+      "folderTitle": "Create New Folder",
+      "fileTitle": "Create New File",
+      "categoryTitle": "Create New Category"
+    },
+    "edit": {
+      "folderTitle": "Edit Folder",
+      "fileTitle": "Edit File",
+      "categoryTitle": "Edit Category"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "categoryDescription": "All the content in this category will be moved to the recycle bin and kept for 30 days before being permanently deleted.",
+      "folderDescription": "All the content in this folder will be moved to the recycle bin and kept for 30 days before being permanently deleted.",
+      "fileDescription": "This file will be moved to the recycle bin and kept for 30 days before being permanently deleted.",
+      "documentDescription": "Document will be moved to the recycle bin and kept for 30 days before being permanently deleted.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "labels": {
+      "categoryName": "Category Name",
+      "folderName": "Folder Name",
+      "fileName": "File Name",
+      "english": "English",
+      "arabic": "Arabic",
+      "viewPermissions": "Select Who can view this",
+      "byRole": "By Role",
+      "byUsers": "By Users",
+      "searchRoles": "Search roles",
+      "searchUsers": "Search users",
+      "noRolesAvailable": "No roles available.",
+      "noUsersAvailable": "No users available.",
+      "required": "*"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "saveChanges": "Save Changes"
+    },
+    "validation": {
+      "nameEnRequired": "{label} (English) is required",
+      "nameArRequired": "{label} (Arabic) is required"
+    }
+  },
+  "fileDialogs": {
+    "accessibility": {
+      "title": "Accessibility",
+      "selectWhoView": "Select Who can view this file"
+    },
+    "addDocument": {
+      "title": "Add Document(s)",
+      "documents": "Documents",
+      "upload": "Upload (.doc, .txt, .pdf, .xlsx, ...)",
+      "changeFile": "Change file",
+      "nameEnglish": "Document Name (English)",
+      "nameArabic": "Document Name (Arabic)",
+      "documentName": "Document Name",
+      "namePlaceholder": "Document name",
+      "namePlaceholderAr": "اسم الملف",
+      "lockDocument": "Who can view this document",
+      "selectWhoView": "Select Who can view this document",
+      "addNewDocument": "Add New Document",
+      "maximum": "Maximum {max} documents reached",
+      "uploadError": "Please select at least one document to upload",
+      "uploadFailed": "{count} document(s) failed to upload",
+      "failedToUpload": "Failed to upload document"
+    },
+    "editFile": {
+      "title": "Edit File Content",
+      "nameEnglish": "File Name (English)",
+      "nameArabic": "File Name (Arabic)",
+      "descriptionEnglish": "Description (English)",
+      "descriptionArabic": "Description (Arabic)",
+      "selectWhoView": "Select Who can view this file",
+      "updateSuccess": "File updated successfully",
+      "updateFailed": "Failed to update file"
+    },
+    "rename": {
+      "title": "Rename Document",
+      "documentName": "Document Name",
+      "enterDocumentName": "Enter document name",
+      "titleRequired": "Title is required",
+      "renameFailed": "Failed to rename document",
+      "updatedSuccess": "Updated successfully.",
+      "failedToRename": "Failed to rename: {errorMessage}"
+    },
+    "common": {
+      "byRole": "By Role",
+      "byUsers": "By Users",
+      "searchRoles": "Search roles",
+      "searchUsers": "Search users",
+      "noRolesAvailable": "No roles available.",
+      "noUsersAvailable": "No users available.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "add": "Add",
+      "required": "*"
+    }
+  },
+  "sidebar": {
+    "home": "Home",
+    "categories": "Categories",
+    "noCategoriesAvailable": "No categories available",
+    "addNewCategory": "Add New Category",
+    "createNewCategory": "Create New Category",
+    "categoryName": "Category Name",
+    "rolesAndPermissions": "Roles & Permissions",
+    "recycleBin": "Recycle Bin"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email Address",
+      "password": "Password",
+      "emailPlaceholder": "you{'@'}example.com",
+      "passwordPlaceholder": "********",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "signingIn": "Signing in…",
+      "loginButton": "Login",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Email must be valid",
+        "passwordRequired": "Password is required"
+      },
+      "toast": {
+        "success": "You have logged in successfully",
+        "welcomeBack": "Welcome back, {name}",
+        "invalidCredentials": "Invalid email or password",
+        "notVerified": "Account not verified",
+        "verificationRequired": "Please verify your account before logging in"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forget Password",
+      "rememberPassword": "Remember Password?",
+      "signIn": "Sign in",
+      "email": "Email Address",
+      "emailPlaceholder": "you{'@'}example.com",
+      "send": "Send",
+      "sending": "Sending…",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email"
+      },
+      "toast": {
+        "success": "Password reset email has been sent successfully.",
+        "messageSent": "If this email is registered, you will receive a new password shortly.",
+        "failed": "Failed to send password reset email."
+      }
+    },
+    "confirmPassword": {
+      "title": "Reset Password",
+      "resettingFor": "Resetting for: {email}",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "passwordPlaceholder": "********",
+      "submit": "Submit",
+      "submitting": "Submitting…",
+      "resendAvailable": "Resend available in",
+      "didntGetMail": "Didn't get the mail?",
+      "resend": "Resend",
+      "validation": {
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordPolicy": "Must include uppercase, lowercase, digit & special char",
+        "confirmPasswordMin": "Confirm password must be at least 8 characters",
+        "passwordsMatch": "Passwords do not match"
+      },
+      "toast": {
+        "success": "Password has been reset successfully",
+        "failed": "Failed to reset password",
+        "emailMissing": "Email is missing. Please request a new reset email.",
+        "emailNotFound": "We couldn't find your email. Please request a new reset email.",
+        "resendSuccess": "Password reset email resent successfully",
+        "resendFailed": "Failed to resend password email."
+      }
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "passwordPlaceholder": "********",
+      "submit": "Submit",
+      "submitting": "Submitting…",
+      "validation": {
+        "oldPasswordRequired": "Old password is required",
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordPolicy": "Must include uppercase, lowercase, digit & special char",
+        "confirmPasswordMin": "Confirm password must be at least 8 characters",
+        "passwordsMatch": "Passwords do not match",
+        "passwordDifferent": "New password must be different from old password"
+      },
+      "toast": {
+        "success": "Password updated successfully",
+        "failed": "Failed to update password"
+      }
+    }
+  },
+  "error": {
+    "pageNotFound": "Page Not Found",
+    "description404": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "backToHome": "Back to Home",
+    "genericError": "Something went wrong",
+    "altLogo": "Kandil Steel"
+  }
+}
