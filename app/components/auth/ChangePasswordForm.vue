@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async ({ oldPassword, password, confirmPassword }:
 
 <template>
   <div class="max-w-md mx-auto space-y-6">
-    <h1 class="text-2xl font-bold leading-8 text-[#171717]">{{ t("auth.changePassword.title") }}</h1>
+    <h3 class="text-2xl font-bold leading-8 text-[#171717]">{{ t("auth.changePassword.title") }}</h3>
     <form class="space-y-6 sm:space-y-8" @submit="onSubmit">
       <!-- Old password -->
       <FormField v-slot="{ componentField, errorMessage }" name="oldPassword">
@@ -88,116 +88,81 @@ const onSubmit = handleSubmit(async ({ oldPassword, password, confirmPassword }:
                 v-bind="componentField"
                 :type="showOld ? 'text' : 'password'"
                 :placeholder="t('auth.changePassword.passwordPlaceholder')"
-                :aria-invalid="!!errorMessage"
-                :aria-describedby="errorMessage ? 'oldPassword-error' : undefined"
-                aria-required="true"
-                autocomplete="current-password"
                 class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
               />
-              <button
-                type="button"
-                class="absolute end-3 text-gray-600 hover:text-gray-900 cursor-pointer h-11 w-11 sm:h-8 sm:w-8 flex items-center justify-center rounded-full transition-colors"
-                :aria-label="showOld ? t('auth.changePassword.hidePassword') || 'Hide password' : t('auth.changePassword.showPassword') || 'Show password'"
-                :aria-pressed="showOld"
-                @click="showOld = !showOld"
-              >
-                <component :is="showOld ? EyeOff : Eye" class="w-5 h-5" aria-hidden="true" />
+              <button type="button" class="absolute end-3 text-gray-500 cursor-pointer" @click="showOld = !showOld">
+                <component :is="showOld ? EyeOff : Eye" class="w-5 h-5" />
               </button>
             </div>
           </FormControl>
 
           <transition name="fade">
-            <p v-if="errorMessage" id="oldPassword-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" />
+            <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" />
               {{ errorMessage }}
             </p>
           </transition>
         </FormItem>
       </FormField>
 
-      <fieldset class="space-y-6 sm:space-y-8">
-        <legend class="sr-only">{{ t("auth.changePassword.newPasswordSection") || "New Password Section" }}</legend>
-        <!-- New password -->
-        <FormField v-slot="{ componentField, errorMessage }" name="password">
-          <FormItem>
-            <FormLabel>{{ t("auth.changePassword.newPassword") }}</FormLabel>
-            <FormControl>
-              <div class="relative flex items-center">
-                <Input
-                  v-bind="componentField"
-                  :type="showPassword ? 'text' : 'password'"
-                  :placeholder="t('auth.changePassword.passwordPlaceholder')"
-                  :aria-invalid="!!errorMessage"
-                  :aria-describedby="errorMessage ? 'password-error' : undefined"
-                  aria-required="true"
-                  autocomplete="new-password"
-                  class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
-                />
-                <button
-                  type="button"
-                  class="absolute end-3 text-gray-600 hover:text-gray-900 cursor-pointer h-11 w-11 sm:h-8 sm:w-8 flex items-center justify-center rounded-full transition-colors"
-                  :aria-label="showPassword ? t('auth.changePassword.hidePassword') || 'Hide password' : t('auth.changePassword.showPassword') || 'Show password'"
-                  :aria-pressed="showPassword"
-                  @click="showPassword = !showPassword"
-                >
-                  <component :is="showPassword ? EyeOff : Eye" class="w-5 h-5" aria-hidden="true" />
-                </button>
-              </div>
-            </FormControl>
+      <!-- New password -->
+      <FormField v-slot="{ componentField, errorMessage }" name="password">
+        <FormItem>
+          <FormLabel>{{ t("auth.changePassword.newPassword") }}</FormLabel>
+          <FormControl>
+            <div class="relative flex items-center">
+              <Input
+                v-bind="componentField"
+                :type="showPassword ? 'text' : 'password'"
+                :placeholder="t('auth.changePassword.passwordPlaceholder')"
+                class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
+              />
+              <button type="button" class="absolute end-3 text-gray-500 cursor-pointer" @click="showPassword = !showPassword">
+                <component :is="showPassword ? EyeOff : Eye" class="w-5 h-5" />
+              </button>
+            </div>
+          </FormControl>
 
-            <transition name="fade">
-              <p v-if="errorMessage" id="password-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-                <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" />
-                {{ errorMessage }}
-              </p>
-            </transition>
-          </FormItem>
-        </FormField>
+          <transition name="fade">
+            <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" />
+              {{ errorMessage }}
+            </p>
+          </transition>
+        </FormItem>
+      </FormField>
 
-        <!-- Confirm password -->
-        <FormField v-slot="{ componentField, errorMessage }" name="confirmPassword">
-          <FormItem>
-            <FormLabel>{{ t("auth.changePassword.confirmPassword") }}</FormLabel>
-            <FormControl>
-              <div class="relative flex items-center">
-                <Input
-                  v-bind="componentField"
-                  :type="showConfirm ? 'text' : 'password'"
-                  :placeholder="t('auth.changePassword.passwordPlaceholder')"
-                  :aria-invalid="!!errorMessage"
-                  :aria-describedby="errorMessage ? 'confirmPassword-error' : undefined"
-                  aria-required="true"
-                  autocomplete="new-password"
-                  class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
-                />
-                <button
-                  type="button"
-                  class="absolute end-3 text-gray-600 hover:text-gray-900 cursor-pointer h-11 w-11 sm:h-8 sm:w-8 flex items-center justify-center rounded-full transition-colors"
-                  :aria-label="showConfirm ? t('auth.changePassword.hidePassword') || 'Hide password' : t('auth.changePassword.showPassword') || 'Show password'"
-                  :aria-pressed="showConfirm"
-                  @click="showConfirm = !showConfirm"
-                >
-                  <component :is="showConfirm ? EyeOff : Eye" class="w-5 h-5" aria-hidden="true" />
-                </button>
-              </div>
-            </FormControl>
+      <!-- Confirm password -->
+      <FormField v-slot="{ componentField, errorMessage }" name="confirmPassword">
+        <FormItem>
+          <FormLabel>{{ t("auth.changePassword.confirmPassword") }}</FormLabel>
+          <FormControl>
+            <div class="relative flex items-center">
+              <Input
+                v-bind="componentField"
+                :type="showConfirm ? 'text' : 'password'"
+                :placeholder="t('auth.changePassword.passwordPlaceholder')"
+                class="pe-10 w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] placeholder:font-normal placeholder:text-base placeholder:leading-6 border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
+              />
+              <button type="button" class="absolute end-3 text-gray-500 cursor-pointer" @click="showConfirm = !showConfirm">
+                <component :is="showConfirm ? EyeOff : Eye" class="w-5 h-5" />
+              </button>
+            </div>
+          </FormControl>
 
-            <transition name="fade">
-              <p v-if="errorMessage" id="confirmPassword-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-                <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" />
-                {{ errorMessage }}
-              </p>
-            </transition>
-          </FormItem>
-        </FormField>
-      </fieldset>
+          <transition name="fade">
+            <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" />
+              {{ errorMessage }}
+            </p>
+          </transition>
+        </FormItem>
+      </FormField>
 
       <Button
         type="submit"
-        class="w-full bg-[#169CC2] text-white shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75 h-11 sm:h-8"
+        class="w-full bg-[#169CC2] text-white shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75"
         :disabled="!meta.valid || isSubmitting"
-        :aria-busy="isSubmitting"
-        aria-label="Submit password change"
       >
         {{ isSubmitting ? t("auth.changePassword.submitting") : t("auth.changePassword.submit") }}
       </Button>

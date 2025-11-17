@@ -206,7 +206,7 @@ watch(isOpen, (open) => {
       </DialogHeader>
 
       <div class="px-5 flex flex-col gap-7">
-        <div v-if="errors.general" class="p-3 bg-red-50 border border-red-200 rounded-md" role="alert" aria-live="polite">
+        <div v-if="errors.general" class="p-3 bg-red-50 border border-red-200 rounded-md">
           <p class="text-red-600 text-sm">{{ errors.general }}</p>
         </div>
 
@@ -215,38 +215,16 @@ watch(isOpen, (open) => {
             <Label for="nameEn" class="!text-[#171717] !mb-3">
               {{ props.nameLabel }} ({{ t("dialog.labels.english") }}) <span class="text-red-500">{{ t("dialog.labels.required") }}</span>
             </Label>
-            <Input
-              id="nameEn"
-              v-model="itemNameEn"
-              type="text"
-              :aria-invalid="!!errors.nameEn"
-              :aria-describedby="errors.nameEn ? 'nameEn-error' : undefined"
-              aria-required="true"
-              :class="{ 'border-red-500': errors.nameEn }"
-            />
-            <p v-if="errors.nameEn" id="nameEn-error" role="alert" class="text-red-600 text-sm mt-1">
-              {{ errors.nameEn }}
-            </p>
+            <Input id="nameEn" v-model="itemNameEn" type="text" :class="{ 'border-red-500': errors.nameEn }" />
+            <p v-if="errors.nameEn" class="text-red-500 text-sm mt-1">{{ errors.nameEn }}</p>
           </div>
 
           <div>
             <Label for="nameAr" class="!text-[#171717] !mb-3">
               {{ props.nameLabel }} ({{ t("dialog.labels.arabic") }}) <span class="text-red-500">{{ t("dialog.labels.required") }}</span>
             </Label>
-            <Input
-              id="nameAr"
-              v-model="itemNameAr"
-              type="text"
-              dir="rtl"
-              class="text-right"
-              :aria-invalid="!!errors.nameAr"
-              :aria-describedby="errors.nameAr ? 'nameAr-error' : undefined"
-              aria-required="true"
-              :class="{ 'border-red-500': errors.nameAr }"
-            />
-            <p v-if="errors.nameAr" id="nameAr-error" role="alert" class="text-red-600 text-sm mt-1">
-              {{ errors.nameAr }}
-            </p>
+            <Input id="nameAr" v-model="itemNameAr" type="text" dir="rtl" class="text-right" :class="{ 'border-red-500': errors.nameAr }" />
+            <p v-if="errors.nameAr" class="text-red-500 text-sm mt-1">{{ errors.nameAr }}</p>
           </div>
         </div>
 
@@ -282,7 +260,7 @@ watch(isOpen, (open) => {
 
         <div v-if="viewBy === 'role'" class="flex flex-col gap-2">
           <div class="border rounded-md p-2 flex flex-col gap-2">
-            <Input v-model="searchRoles" :placeholder="t('dialog.labels.searchRoles')" :aria-label="t('dialog.labels.searchRoles') || 'Search roles'" />
+            <Input v-model="searchRoles" :placeholder="t('dialog.labels.searchRoles')" />
             <div class="flex flex-col gap-1 max-h-40 overflow-y-auto">
               <div v-if="availableRoles.length === 0" class="text-gray-500 text-sm py-2 text-center">{{ t("dialog.labels.noRolesAvailable") }}</div>
               <label v-for="role in filteredRoles" v-else :key="role.id" class="flex items-center gap-2 cursor-pointer">
@@ -295,7 +273,7 @@ watch(isOpen, (open) => {
 
         <div v-if="viewBy === 'users'" class="flex flex-col gap-2">
           <div class="border rounded-md p-2 flex flex-col gap-2">
-            <Input v-model="searchUsers" :placeholder="t('dialog.labels.searchUsers')" :aria-label="t('dialog.labels.searchUsers') || 'Search users'" />
+            <Input v-model="searchUsers" :placeholder="t('dialog.labels.searchUsers')" />
             <div class="flex flex-col gap-1 max-h-40 overflow-y-auto">
               <div v-if="availableUsers.length === 0" class="text-gray-500 text-sm py-2 text-center">{{ t("dialog.labels.noUsersAvailable") }}</div>
               <label v-for="user in filteredUsers" v-else :key="user.id" class="flex items-center gap-2 cursor-pointer">

@@ -6,17 +6,15 @@ import { useFetchNews } from "@/composables/news/useFetchNews";
 import { useGetNewsOne } from "@/composables/news/useGetNewsOne";
 import { useUpdate } from "@/composables/news/useUpdate";
 import { Plus, X } from "lucide-vue-next";
-import { defineAsyncComponent, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { toast } from "vue-sonner";
 import { usePermissions } from "~/composables/usePermissions";
 import type { CreateNewsPayload, NewsItem, UpdateNewsPayload } from "../../../types/news";
 import Separator from "../ui/separator/Separator.vue";
-
-// Lazy load dialog components - only load when needed
-const HomeAddNewsDialog = defineAsyncComponent(() => import("./HomeAddNewsDialog.vue"));
-const HomeEditNewsDialog = defineAsyncComponent(() => import("./HomeEditNewsDialog.vue"));
-const NewsCard = defineAsyncComponent(() => import("./HomeNewsCard.vue"));
-const HomeNewsEmptyState = defineAsyncComponent(() => import("./HomeNewsEmptyState.vue"));
+import HomeAddNewsDialog from "./HomeAddNewsDialog.vue";
+import HomeEditNewsDialog from "./HomeEditNewsDialog.vue";
+import NewsCard from "./HomeNewsCard.vue";
+import HomeNewsEmptyState from "./HomeNewsEmptyState.vue";
 
 const { t } = useI18n();
 const { canCreate, canUpdate, canDelete } = usePermissions();

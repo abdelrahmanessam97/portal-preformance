@@ -2,18 +2,13 @@
   <div
     v-if="show"
     class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/60 backdrop-blur-sm"
-    role="status"
-    aria-busy="true"
-    aria-live="polite"
-    aria-label="Page loading"
   >
-    <span class="sr-only">Loading page...</span>
-    <span class="loader" aria-hidden="true"></span>
+    <span class="loader"></span>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps({ show: { type: Boolean, required: true } });
+defineProps({ show: { type: Boolean, required: true } })
 </script>
 
 <style scoped>

@@ -94,11 +94,11 @@ const isValid = computed(() => !!values.email && !errors.value.email && !isSubmi
 <template>
   <div class="space-y-6 w-full max-w-md mx-auto">
     <div class="flex flex-col gap-2 items-start">
-      <h1 class="text-2xl font-bold">{{ t("auth.forgotPassword.title") }}</h1>
-      <p class="flex gap-2 text-sm text-[#706F6F]">
+      <h3 class="text-2xl font-bold">{{ t("auth.forgotPassword.title") }}</h3>
+      <span class="flex gap-2 text-sm text-[#706F6F]">
         <span>{{ t("auth.forgotPassword.rememberPassword") }}</span>
         <NuxtLinkLocale to="/auth/login" class="text-[#169CC2] underline"> {{ t("auth.forgotPassword.signIn") }} </NuxtLinkLocale>
-      </p>
+      </span>
     </div>
 
     <form class="space-y-6 sm:space-y-8" @submit.prevent="onSubmit">
@@ -110,37 +110,26 @@ const isValid = computed(() => !!values.email && !errors.value.email && !isSubmi
               v-bind="componentField"
               type="email"
               :placeholder="t('auth.forgotPassword.emailPlaceholder')"
-              :aria-invalid="!!errorMessage"
-              :aria-describedby="errorMessage ? 'email-error' : successMessage ? 'success-message' : undefined"
-              aria-required="true"
-              autocomplete="email"
               class="w-full py-5 text-base font-normal leading-6 text-[#232323] placeholder:text-[#a3a3a3] border border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.06)]"
             />
           </FormControl>
 
           <transition name="fade">
-            <p v-if="errorMessage" id="email-error" role="alert" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
-              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" aria-hidden="true" />
+            <p v-if="errorMessage" class="mt-1 text-xs font-medium text-[#dc2626] flex items-center">
+              <AlertCircle class="w-3 h-3 me-1 flex-shrink-0" />
               {{ errorMessage }}
             </p>
           </transition>
         </FormItem>
       </FormField>
 
-      <Button
-        type="submit"
-        :disabled="!isValid"
-        class="w-full bg-[#169CC2] shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75 h-11 sm:h-8"
-        :aria-busy="isSubmitting"
-      >
+      <Button type="submit" :disabled="!isValid" class="w-full bg-[#169CC2] shadow-sm hover:scale-[1.01] active:scale-100 transition-transform duration-75">
         {{ isSubmitting ? t("auth.forgotPassword.sending") : t("auth.forgotPassword.send") }}
       </Button>
 
-      <transition name="fade">
-        <p v-if="successMessage" id="success-message" role="status" aria-live="polite" class="text-green-600 text-sm text-center">
-          {{ successMessage }}
-        </p>
-      </transition>
+      <p v-if="successMessage" class="text-green-500 text-sm text-center">
+        {{ successMessage }}
+      </p>
     </form>
   </div>
 </template>

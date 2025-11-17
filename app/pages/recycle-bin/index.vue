@@ -17,95 +17,12 @@ import type { RecycleItem } from "~~/types/recycleBin";
 
 type TabType = "categories" | "folders" | "files" | "documents";
 
-const { locale, t } = useI18n();
-const route = useRoute();
-const config = useRuntimeConfig();
-const { refreshFetchCategories } = useFetchCategories();
-
-const seoPageTitle = "Recycle Bin - Kandil Internal Portal";
-const pageDescription = "View and restore deleted items from the recycle bin in Kandil Internal Portal.";
-const siteUrl = config.public.apiBase?.replace("/api", "") || "";
-const canonicalUrl = `${siteUrl}${route.path}`;
-
-// Structured Data (JSON-LD) for SEO
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: seoPageTitle,
-  description: pageDescription,
-  url: canonicalUrl,
-  isPartOf: {
-    "@type": "WebSite",
-    name: "Kandil Internal Portal",
-    url: siteUrl,
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Recycle Bin",
-        item: canonicalUrl,
-      },
-    ],
-  },
-};
-
-useHead({
-  title: seoPageTitle,
-  meta: [
-    {
-      name: "description",
-      content: pageDescription,
-    },
-    {
-      property: "og:title",
-      content: seoPageTitle,
-    },
-    {
-      property: "og:description",
-      content: pageDescription,
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: canonicalUrl,
-    },
-    {
-      name: "robots",
-      content: "noindex, nofollow",
-    },
-  ],
-  link: [
-    {
-      rel: "canonical",
-      href: canonicalUrl,
-    },
-  ],
-  script: [
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify(structuredData),
-    },
-  ],
-  htmlAttrs: {
-    lang: locale.value || "en",
-  },
-});
-
 definePageMeta({
   middleware: "permission",
 });
+
+const { refreshFetchCategories } = useFetchCategories();
+const { t } = useI18n();
 const { canUpdate } = usePermissions();
 
 const activeTab = ref<TabType>("categories");

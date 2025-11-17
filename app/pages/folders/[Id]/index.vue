@@ -83,17 +83,15 @@ const {
   folderDetail,
   assignedRolesToFolder,
   assignedAdminsToFolder,
-} = hasReadPermission
-  ? useGetFolderById(folderId.value!)
-  : {
-      data: ref(null),
-      pending: ref(false),
-      error: ref(null),
-      refresh: () => Promise.resolve(),
-      folderDetail: ref(null),
-      assignedRolesToFolder: ref([]),
-      assignedAdminsToFolder: ref([]),
-    };
+} = hasReadPermission ? useGetFolderById(folderId.value!) : {
+  data: ref(null),
+  pending: ref(false),
+  error: ref(null),
+  refresh: () => Promise.resolve(),
+  folderDetail: ref(null),
+  assignedRolesToFolder: ref([]),
+  assignedAdminsToFolder: ref([]),
+};
 
 // Handle API errors - check immediately and watch for changes (only if user has permission)
 const handleFolderError = (err: unknown) => {
@@ -165,127 +163,6 @@ const folderViewBy = computed(() => {
   if (hasAdmins) return "users";
   return "role"; // default
 });
-
-// SEO Meta Tags - Dynamic based on folder
-const config = useRuntimeConfig();
-const siteUrl = config.public.apiBase?.replace("/api", "") || "";
-const canonicalUrl = computed(() => `${siteUrl}${route.path}`);
-
-const folderTitle = computed(() => {
-  if (!folderDetail.value) return "";
-  return locale.value === "ar" ? folderDetail.value.title_ar ?? folderDetail.value.title_en ?? "" : folderDetail.value.title_en ?? folderDetail.value.title_ar ?? "";
-});
-
-const pageTitle = computed(() => {
-  if (!folderTitle.value) return "Folder - Kandil Internal Portal";
-  return `${folderTitle.value} - Kandil Internal Portal`;
-});
-
-const pageDescription = computed(() => {
-  if (!folderDetail.value) return "View folder details and manage files in Kandil Internal Portal.";
-  const title = folderTitle.value;
-  return `View ${title} folder details, files, and manage your documents in Kandil Internal Portal.`;
-});
-
-// Structured Data (JSON-LD) for SEO
-const structuredData = computed(() => {
-  const categoryName = folderData.value?.data?.category_title || "Category";
-  const breadcrumbItems = [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: siteUrl,
-    },
-  ];
-
-  if (categoryId.value) {
-    breadcrumbItems.push({
-      "@type": "ListItem",
-      position: 2,
-      name: categoryName,
-      item: `${siteUrl}/categories/${categoryId.value}`,
-    });
-  }
-
-  if (folderTitle.value) {
-    breadcrumbItems.push({
-      "@type": "ListItem",
-      position: 3,
-      name: folderTitle.value,
-      item: canonicalUrl.value,
-    });
-  }
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: pageTitle.value,
-    description: pageDescription.value,
-    url: canonicalUrl.value,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Kandil Internal Portal",
-      url: siteUrl,
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: breadcrumbItems,
-    },
-  };
-});
-
-// Watch folderDetail and update meta tags
-watch(
-  [folderDetail, folderTitle, locale, categoryId],
-  () => {
-    useHead({
-      title: pageTitle.value,
-      meta: [
-        {
-          name: "description",
-          content: pageDescription.value,
-        },
-        {
-          property: "og:title",
-          content: pageTitle.value,
-        },
-        {
-          property: "og:description",
-          content: pageDescription.value,
-        },
-        {
-          property: "og:type",
-          content: "website",
-        },
-        {
-          property: "og:url",
-          content: canonicalUrl.value,
-        },
-        {
-          property: "og:locale",
-          content: locale.value === "ar" ? "ar_EG" : "en_US",
-        },
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: canonicalUrl.value,
-        },
-      ],
-      script: [
-        {
-          type: "application/ld+json",
-          innerHTML: JSON.stringify(structuredData.value),
-        },
-      ],
-      htmlAttrs: {
-        lang: locale.value || "en",
-      },
-    });
-  },
-  { immediate: true, deep: true }
-);
 
 // For refetching categories list after mutations (used by sidebar/listeners)
 const { refresh: refreshFetchCategories } = useFetchCategories();
@@ -491,160 +368,156 @@ const handleDeleteFolder = async () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <!-- Header -->
-      <div class="flex items-center justify-between">
-        <h1 class="text-lg sm:text-2xl md:text-3xl font-bold leading-tight">
-          <span v-if="folderError && !folderForbidden">{{ t("folders.loadError") }}</span>
-          <span v-else>{{ folderName }}</span>
-        </h1>
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <h1 class="text-lg sm:text-2xl md:text-3xl font-bold leading-tight">
+        <span v-if="folderError && !folderForbidden">{{ t("folders.loadError") }}</span>
+        <span v-else>{{ folderName }}</span>
+      </h1>
 
-        <div v-if="folderDetail" class="flex items-center gap-2 sm:gap-3">
-          <ClientOnly>
-            <CreateItemDialog
-              v-if="folderId && canCreate('files')"
-              :dialog-title="t('dialog.create.fileTitle')"
-              :name-label="t('dialog.labels.fileName')"
-              type="file"
-              :roles="assignedRolesToFolder"
-              :users="assignedAdminsToFolder"
-              @on-add="
-                (p, onSuccess, onError) =>
-                  handleAddFile(
-                    { type: p.type, titleEn: p.titleEn, titleAr: p.titleAr, url: p.url, viewBy: p.viewBy, roles: p.roles, users: p.users },
-                    onSuccess,
-                    onError
-                  )
-              "
-              @dialog-open="refreshRolesAndAdmins"
-            >
-              <Button
-                size="sm"
-                class="rounded-lg bg-primary text-white hover:bg-primary/90 hover:shadow-lg cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-md font-medium"
-              >
-                <Plus class="h-4 w-4" />
-                <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.createFile") }}</span>
-              </Button>
-            </CreateItemDialog>
-          </ClientOnly>
-
-          <ClientOnly>
-            <EditItemDialog
-              v-if="folderId && canUpdate('folders')"
-              :dialog-title="t('dialog.edit.folderTitle')"
-              :name-label="t('dialog.labels.folderName')"
-              type="folder"
-              :title-en="folderDetail?.title_en"
-              :title-ar="folderDetail?.title_ar"
-              :view-by="folderViewBy"
-              :roles="assignedRolesToCategory"
-              :users="assignedAdminsToCategory"
-              :assigned-roles="assignedRolesToFolder"
-              :assigned-users="assignedAdminsToFolder"
-              @on-edit="
-                (p, onSuccess, onError) =>
-                  handleEditFolder({ type: p.type, titleEn: p.titleEn, titleAr: p.titleAr, viewBy: p.viewBy, roles: p.roles, users: p.users }, onSuccess, onError)
-              "
-            >
-              <Button
-                size="sm"
-                class="rounded-lg bg-white text-[#0080a5] border border-[#0080a5] hover:bg-[#e6f7fa] hover:border-[#006d8a] hover:text-[#006d8a] cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-              >
-                <SquarePen class="h-4 w-4" />
-                <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.editFolder") }}</span>
-              </Button>
-            </EditItemDialog>
-          </ClientOnly>
-
-          <Button
-            v-if="canDelete('folders')"
-            size="sm"
-            class="rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700 cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-            @click="deleteDialogOpen = true"
+      <div v-if="folderDetail" class="flex items-center gap-2 sm:gap-3">
+        <ClientOnly>
+          <CreateItemDialog
+            v-if="folderId && canCreate('files')"
+            :dialog-title="t('dialog.create.fileTitle')"
+            :name-label="t('dialog.labels.fileName')"
+            type="file"
+            :roles="assignedRolesToFolder"
+            :users="assignedAdminsToFolder"
+            @on-add="
+              (p, onSuccess, onError) =>
+                handleAddFile({ type: p.type, titleEn: p.titleEn, titleAr: p.titleAr, url: p.url, viewBy: p.viewBy, roles: p.roles, users: p.users }, onSuccess, onError)
+            "
+            @dialog-open="refreshRolesAndAdmins"
           >
-            <Trash class="h-4 w-4" />
-            <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.deleteFolder") }}</span>
-          </Button>
+            <Button
+              size="sm"
+              class="rounded-lg bg-primary text-white hover:bg-primary/90 hover:shadow-lg cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-md font-medium"
+            >
+              <Plus class="h-4 w-4" />
+              <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.createFile") }}</span>
+            </Button>
+          </CreateItemDialog>
+        </ClientOnly>
 
-          <ClientOnly>
-            <DeleteItemDialog
-              v-model:open="deleteDialogOpen"
-              :title="t('dialog.delete.title')"
-              :description="t('dialog.delete.folderDescription')"
-              :confirm-text="t('dialog.delete.confirm')"
-              :cancel-text="t('dialog.buttons.cancel')"
-              @confirm="handleDeleteFolder"
-            />
-          </ClientOnly>
+        <ClientOnly>
+          <EditItemDialog
+            v-if="folderId && canUpdate('folders')"
+            :dialog-title="t('dialog.edit.folderTitle')"
+            :name-label="t('dialog.labels.folderName')"
+            type="folder"
+            :title-en="folderDetail?.title_en"
+            :title-ar="folderDetail?.title_ar"
+            :view-by="folderViewBy"
+            :roles="assignedRolesToCategory"
+            :users="assignedAdminsToCategory"
+            :assigned-roles="assignedRolesToFolder"
+            :assigned-users="assignedAdminsToFolder"
+            @on-edit="
+              (p, onSuccess, onError) =>
+                handleEditFolder({ type: p.type, titleEn: p.titleEn, titleAr: p.titleAr, viewBy: p.viewBy, roles: p.roles, users: p.users }, onSuccess, onError)
+            "
+          >
+            <Button
+              size="sm"
+              class="rounded-lg bg-white text-[#0080a5] border border-[#0080a5] hover:bg-[#e6f7fa] hover:border-[#006d8a] hover:text-[#006d8a] cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+            >
+              <SquarePen class="h-4 w-4" />
+              <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.editFolder") }}</span>
+            </Button>
+          </EditItemDialog>
+        </ClientOnly>
+
+        <Button
+          v-if="canDelete('folders')"
+          size="sm"
+          class="rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700 cursor-pointer h-8 w-8 sm:h-8 sm:w-auto sm:px-3 sm:py-1.5 flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+          @click="deleteDialogOpen = true"
+        >
+          <Trash class="h-4 w-4" />
+          <span class="hidden lg:inline text-xs lg:text-sm">{{ t("folders.deleteFolder") }}</span>
+        </Button>
+
+        <ClientOnly>
+          <DeleteItemDialog
+            v-model:open="deleteDialogOpen"
+            :title="t('dialog.delete.title')"
+            :description="t('dialog.delete.folderDescription')"
+            :confirm-text="t('dialog.delete.confirm')"
+            :cancel-text="t('dialog.buttons.cancel')"
+            @confirm="handleDeleteFolder"
+          />
+        </ClientOnly>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div v-if="folderPending" class=""><LoadingSpinner /></div>
+
+    <!-- Forbidden State -->
+    <div v-else-if="folderForbidden" class="border border-amber-200 rounded-2xl shadow-sm bg-amber-50">
+      <div class="flex items-center justify-center py-12 px-4 text-center">
+        <div class="space-y-2">
+          <div class="text-amber-700 text-lg font-semibold">{{ t("folders.noAccessTitle") }}</div>
+          <div class="text-amber-600 text-sm">{{ t("folders.noAccessDescription") }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="folderError" class="border border-red-200 rounded-2xl shadow-sm bg-red-50">
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="text-red-600 text-lg font-semibold mb-2">{{ t("folders.loadError") }}</div>
+          <div class="text-red-500 text-sm">{{ folderError.message || t("folders.loadErrorDescription") }}</div>
+          <Button class="mt-4" variant="outline" @click="refreshFolder"> {{ t("search.tryAgain") }} </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files Card -->
+    <div v-else class="border border-gray-200 rounded-2xl shadow-sm bg-white hover:shadow-md transition-shadow duration-200">
+      <div class="flex items-center justify-between border-b px-3 sm:px-4 py-3 gap-3">
+        <h2 class="font-semibold text-base sm:text-lg text-primary">{{ t("folders.allFiles") }}</h2>
+
+        <div class="flex items-center relative w-50">
+          <Input
+            id="search-inline"
+            v-model="searchQuery"
+            type="text"
+            :placeholder="t('folders.search')"
+            aria-label="Search files"
+            :class="['w-48 sm:w-72 border-[#E5E5E5] placeholder:text-[#A3A3A3]', locale === 'ar' ? 'pe-10' : 'ps-10']"
+          />
+          <Search :class="['text-[#E5E5E5] !text-sm absolute top-1/2 -translate-y-1/2', locale === 'ar' ? 'end-2' : 'start-2']" aria-hidden="true" />
         </div>
       </div>
 
-      <!-- Loading State -->
-      <div v-if="folderPending" class=""><LoadingSpinner /></div>
-
-      <!-- Forbidden State -->
-      <div v-else-if="folderForbidden" class="border border-amber-200 rounded-2xl shadow-sm bg-amber-50">
-        <div class="flex items-center justify-center py-12 px-4 text-center">
-          <div class="space-y-2">
-            <div class="text-amber-700 text-lg font-semibold">{{ t("folders.noAccessTitle") }}</div>
-            <div class="text-amber-600 text-sm">{{ t("folders.noAccessDescription") }}</div>
+      <ul class="divide-y p-1 sm:p-3">
+        <li v-if="filesPending" class="relative"><LoadingSpinner /></li>
+        <li v-else-if="filesError" class="px-4 py-8 text-red-500 text-sm text-center">{{ t("files.deleteFailed") }}</li>
+        <li v-else-if="filteredFiles.length === 0" class="px-4 py-8">
+          <div class="flex flex-col items-center justify-center text-center text-gray-400">
+            <FileIcon class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mb-3 sm:mb-4" />
+            <h3 class="text-base sm:text-xl font-semibold">{{ t("folders.noFilesFound") }}</h3>
           </div>
-        </div>
-      </div>
-
-      <!-- Error State -->
-      <div v-else-if="folderError" class="border border-red-200 rounded-2xl shadow-sm bg-red-50">
-        <div class="flex items-center justify-center py-12">
-          <div class="text-center">
-            <div class="text-red-600 text-lg font-semibold mb-2">{{ t("folders.loadError") }}</div>
-            <div class="text-red-500 text-sm">{{ folderError.message || t("folders.loadErrorDescription") }}</div>
-            <Button class="mt-4" variant="outline" @click="refreshFolder"> {{ t("search.tryAgain") }} </Button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Files Card -->
-      <div v-else class="border border-gray-200 rounded-2xl shadow-sm bg-white hover:shadow-md transition-shadow duration-200">
-        <div class="flex items-center justify-between border-b px-3 sm:px-4 py-3 gap-3">
-          <h2 class="font-semibold text-base sm:text-lg text-primary">{{ t("folders.allFiles") }}</h2>
-
-          <div class="flex items-center relative w-50">
-            <Input
-              id="search-inline"
-              v-model="searchQuery"
-              type="text"
-              :placeholder="t('folders.search')"
-              aria-label="Search files"
-              :class="['w-48 sm:w-72 border-[#E5E5E5] placeholder:text-[#A3A3A3]', locale === 'ar' ? 'pe-10' : 'ps-10']"
-            />
-            <Search :class="['text-[#E5E5E5] !text-sm absolute top-1/2 -translate-y-1/2', locale === 'ar' ? 'end-2' : 'start-2']" aria-hidden="true" />
-          </div>
-        </div>
-
-        <ul class="divide-y p-1 sm:p-3">
-          <li v-if="filesPending" class="relative"><LoadingSpinner /></li>
-          <li v-else-if="filesError" class="px-4 py-8 text-red-500 text-sm text-center">{{ t("files.deleteFailed") }}</li>
-          <li v-else-if="filteredFiles.length === 0" class="px-4 py-8">
-            <div class="flex flex-col items-center justify-center text-center text-gray-400">
-              <FileIcon class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mb-3 sm:mb-4" />
-              <h3 class="text-base sm:text-xl font-semibold">{{ t("folders.noFilesFound") }}</h3>
+        </li>
+        <li v-for="file in filteredFiles" v-else :key="file.id" class="hover:bg-gray-50 hover:shadow-sm overflow-hidden transition-all duration-200">
+          <NuxtLinkLocale :to="`/files/${file.id}`" class="flex items-center justify-between px-3 sm:px-4 py-3 sm:py-4 cursor-pointer w-full text-sm sm:text-base">
+            <div class="min-w-0 flex items-center gap-2 sm:gap-3">
+              <FileIcon class="text-gray-500 shrink-0" />
+              <span class="text-gray-700 font-medium truncate">
+                {{ locale === "ar" ? file.title_ar || file.title_en || file.title : file.title_en || file.title_ar || file.title }}
+              </span>
+              <span v-if="file.created_at" class="text-xs text-gray-400 whitespace-nowrap">
+                {{ formatDate(file.created_at) }}
+              </span>
             </div>
-          </li>
-          <li v-for="file in filteredFiles" v-else :key="file.id" class="hover:bg-gray-50 hover:shadow-sm overflow-hidden transition-all duration-200">
-            <NuxtLinkLocale :to="`/files/${file.id}`" class="flex items-center justify-between px-3 sm:px-4 py-3 sm:py-4 cursor-pointer w-full text-sm sm:text-base">
-              <div class="min-w-0 flex items-center gap-2 sm:gap-3">
-                <FileIcon class="text-gray-500 shrink-0" />
-                <span class="text-gray-700 font-medium truncate">
-                  {{ locale === "ar" ? file.title_ar || file.title_en || file.title : file.title_en || file.title_ar || file.title }}
-                </span>
-                <span v-if="file.created_at" class="text-xs text-gray-400 whitespace-nowrap">
-                  {{ formatDate(file.created_at) }}
-                </span>
-              </div>
-              <ChevronRight class="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
-            </NuxtLinkLocale>
-          </li>
-        </ul>
-      </div>
+            <ChevronRight class="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+          </NuxtLinkLocale>
+        </li>
+      </ul>
+    </div>
     </template>
   </div>
 </template>

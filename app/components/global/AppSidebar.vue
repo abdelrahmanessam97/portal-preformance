@@ -124,29 +124,26 @@ watch(
           <SidebarContent class="flex flex-col h-full min-h-0 bg-white relative" :class="isRtl ? 'border-l-0' : 'border-r-0'">
             <!-- Scrollable area starting from home button -->
             <div class="flex-1 max-h-[calc(100vh-150px)] overflow-y-auto pb-44 scrollbar">
-              <nav aria-label="Main navigation" class="px-4 pt-4">
+              <div class="px-4 pt-4">
                 <NuxtLinkLocale
                   to="/"
-                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#404040] hover:text-primary transition-colors h-11 sm:h-8"
+                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#404040] hover:text-primary transition-colors"
                   :class="isActiveExact(localePath('/')) ? 'bg-primary/10 text-primary font-medium' : ''"
-                  :aria-current="isActiveExact(localePath('/')) ? 'page' : undefined"
                 >
-                  <House class="h-4 w-4" aria-hidden="true" /> {{ t("sidebar.home") }}
+                  <House class="h-4 w-4" /> {{ t("sidebar.home") }}
                 </NuxtLinkLocale>
-              </nav>
+              </div>
 
               <template v-if="canRead('categories')">
-                <nav aria-label="Categories navigation" class="px-4 mt-2">
+                <div class="px-4 mt-2">
                   <button
-                    class="flex justify-between items-center w-full px-3 py-2 text-[#404040] hover:text-primary hover:bg-gray-100 rounded-md text-sm transition-colors h-11 sm:h-8"
-                    :aria-expanded="isOpen"
-                    :aria-label="isOpen ? t('sidebar.collapseCategories') || 'Collapse categories' : t('sidebar.expandCategories') || 'Expand categories'"
+                    class="flex justify-between items-center w-full px-3 py-2 text-[#404040] hover:text-primary hover:bg-gray-100 rounded-md text-sm transition-colors"
                     @click="toggle"
                   >
-                    <span class="flex items-center gap-3"> <FolderClosed class="h-4 w-4" aria-hidden="true" /> {{ t("sidebar.categories") }} </span>
-                    <ChevronDown class="h-4 w-4 transition-transform" :class="{ 'rotate-180': isOpen }" aria-hidden="true" />
+                    <span class="flex items-center gap-3"> <FolderClosed class="h-4 w-4" /> {{ t("sidebar.categories") }} </span>
+                    <ChevronDown class="h-4 w-4 transition-transform" :class="{ 'rotate-180': isOpen }" />
                   </button>
-                </nav>
+                </div>
 
                 <div class="px-4">
                   <transition
@@ -157,18 +154,17 @@ watch(
                     leave-from-class="transform scale-100 opacity-100"
                     leave-to-class="transform scale-95 opacity-0"
                   >
-                    <ul v-show="isOpen" class="pb-5 space-y-1 text-sm" :class="isRtl ? 'pe-6' : 'ps-6'" role="list" aria-label="Category list">
+                    <ul v-show="isOpen" class="pb-5 space-y-1 text-sm" :class="isRtl ? 'pe-6' : 'ps-6'">
                       <!-- Loading / Error states -->
                       <li v-if="loading" class="pb-20"><LoadingSpinner /></li>
                       <li v-else-if="/* keep slot in DOM for transitions */ false" class="hidden" />
                       <li v-else-if="!loading && !localizedCategories.length" class="px-3 py-2 text-sm text-gray-500">{{ t("sidebar.noCategoriesAvailable") }}</li>
 
-                      <li v-for="cat in localizedCategories" v-else :key="cat.id" role="listitem">
+                      <li v-for="cat in localizedCategories" v-else :key="cat.id">
                         <NuxtLink
                           :to="cat.href"
-                          class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#404040] hover:text-primary hover:bg-primary/5 transition-colors border-b h-11 sm:h-8"
+                          class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#404040] hover:text-primary hover:bg-primary/5 transition-colors border-b"
                           :class="isActiveDeep(cat.href) ? 'bg-primary/10 text-primary font-medium border-b-primary border-b-1' : ''"
-                          :aria-current="isActiveDeep(cat.href) ? 'page' : undefined"
                         >
                           {{ cat.title }}
                         </NuxtLink>
@@ -192,8 +188,8 @@ watch(
                   @on-add="(p, onSuccess, onError) => handleAddCategory({ titleEn: p.titleEn, titleAr: p.titleAr, roles: p.roles, users: p.users }, onSuccess, onError)"
                   @dialog-open="refreshRolesAndAdmins"
                 >
-                  <div class="flex items-center gap-3 px-3 py-2 text-primary text-sm rounded-md hover:bg-primary/5 cursor-pointer transition-colors h-11 sm:h-8">
-                    <CirclePlus class="h-4 w-4" aria-hidden="true" /> {{ t("sidebar.addNewCategory") }}
+                  <div class="flex items-center gap-3 px-3 py-2 text-primary text-sm rounded-md hover:bg-primary/5 cursor-pointer transition-colors">
+                    <CirclePlus class="h-4 w-4" /> {{ t("sidebar.addNewCategory") }}
                   </div>
                 </CreateItemDialog>
 
@@ -203,17 +199,16 @@ watch(
                   class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#737373] hover:bg-[#737373]/5 transition-colors"
                   :class="isActiveDeep(localePath('/permissions')) ? 'bg-[#737373]/10 font-medium' : ''"
                 >
-                  <Lock class="h-4 w-4" aria-hidden="true" /> {{ t("sidebar.rolesAndPermissions") }}
+                  <Lock class="h-4 w-4" /> {{ t("sidebar.rolesAndPermissions") }}
                 </NuxtLinkLocale>
 
                 <NuxtLinkLocale
                   v-if="canRead('recycleBin')"
                   to="recycle-bin"
-                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#DC2626] hover:bg-[#DC2626]/5 transition-colors h-11 sm:h-8"
+                  class="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#DC2626] hover:bg-[#DC2626]/5 transition-colors"
                   :class="isActiveDeep(localePath('/recycle-bin')) ? 'bg-[#DC2626]/10 font-medium' : ''"
-                  :aria-current="isActiveDeep(localePath('/recycle-bin')) ? 'page' : undefined"
                 >
-                  <Trash2 class="h-4 w-4" aria-hidden="true" /> {{ t("sidebar.recycleBin") }}
+                  <Trash2 class="h-4 w-4" /> {{ t("sidebar.recycleBin") }}
                 </NuxtLinkLocale>
               </div>
             </div>
